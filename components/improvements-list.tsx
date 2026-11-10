@@ -83,9 +83,9 @@ export function ImprovementsList() {
                     <Link
                       key={id}
                       href={`/anomalies?anomalie=${id}`}
-                      aria-label={`Constat #${Number(ticket.number)} : ${ticket.title}`}
+                      aria-label={`Constat ${Number(ticket.number)} : ${ticket.title}`}
                     >
-                      #{Number(ticket.number)}
+                      {Number(ticket.number)}
                     </Link>
                   ) : null;
                 })}

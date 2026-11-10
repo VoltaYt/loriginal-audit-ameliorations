@@ -13,9 +13,9 @@ export function BasaltArt() {
             y2="450"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#85776c" />
-            <stop offset=".5" stopColor="#403733" />
-            <stop offset="1" stopColor="#211c19" />
+            <stop stopColor="#797675" />
+            <stop offset=".5" stopColor="#3a3635" />
+            <stop offset="1" stopColor="#1d1b1b" />
           </linearGradient>
           <linearGradient
             id="stoneB"
@@ -25,8 +25,8 @@ export function BasaltArt() {
             y2="470"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#ad9180" />
-            <stop offset="1" stopColor="#342923" />
+            <stop stopColor="#99918e" />
+            <stop offset="1" stopColor="#302827" />
           </linearGradient>
           <linearGradient
             id="stoneC"
@@ -36,8 +36,8 @@ export function BasaltArt() {
             y2="440"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#7c6152" />
-            <stop offset="1" stopColor="#2c211c" />
+            <stop stopColor="#6b5651" />
+            <stop offset="1" stopColor="#282020" />
           </linearGradient>
           <filter id="texture">
             <feTurbulence
@@ -70,7 +70,7 @@ export function BasaltArt() {
           </radialGradient>
         </defs>
         <circle cx="280" cy="270" r="250" fill="url(#glow)" />
-        <g stroke="#9c6550" strokeOpacity=".25">
+        <g stroke="#9c544a" strokeOpacity=".25">
           <ellipse
             cx="277"
             cy="280"
@@ -93,12 +93,12 @@ export function BasaltArt() {
             fill="url(#stoneA)"
           />
           <path d="m146 183 81-95 15 150-114 108Z" fill="url(#stoneB)" />
-          <path d="m227 88 119 28-104 122Z" fill="#987b65" />
+          <path d="m227 88 119 28-104 122Z" fill="#87716b" />
           <path d="m346 116 55 148-159-26Z" fill="url(#stoneC)" />
-          <path d="m242 238 159 26-50 163-89-73Z" fill="#45312a" />
-          <path d="m128 346 114-108 20 116-40 104Z" fill="#624637" />
-          <path d="m222 458 40-104 89 73Z" fill="#35251f" />
-          <g stroke="#e0b7a1" strokeOpacity=".15">
+          <path d="m242 238 159 26-50 163-89-73Z" fill="#402b28" />
+          <path d="m128 346 114-108 20 116-40 104Z" fill="#55403b" />
+          <path d="m222 458 40-104 89 73Z" fill="#302322" />
+          <g stroke="#d2ada6" strokeOpacity=".15">
             <path d="m146 183 96 55-15-150M242 238l104-122M242 238l159 26M242 238l20 116-40 104" />
           </g>
         </g>
@@ -116,10 +116,10 @@ export function BasaltArt() {
         <circle cx="448" cy="174" r="11" stroke="#e1725d" strokeOpacity=".25" />
         <path
           d="M105 139v-17h17M414 400h17v-17"
-          stroke="#c29a84"
+          stroke="#bb938b"
           strokeOpacity=".6"
         />
-        <text x="69" y="419" fill="#a38c7d" fontSize="10" letterSpacing="2">
+        <text x="69" y="419" fill="#9b8984" fontSize="10" letterSpacing="2">
           FIG. 01 — NOUVELLE PERSPECTIVE
         </text>
       </svg>

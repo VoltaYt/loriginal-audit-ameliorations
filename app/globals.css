@@ -1,12 +1,12 @@
 :root {
-  --bg: #191d1a;
-  --sidebar: #141815;
-  --panel: #20251f;
-  --panel-hover: #262d24;
-  --border: #343b31;
-  --text: #efeee6;
-  --muted: #a5aea0;
-  --quiet: #89937f;
+  --bg: #171717;
+  --sidebar: #111111;
+  --panel: #202020;
+  --panel-hover: #282828;
+  --border: #363636;
+  --text: #f0eeee;
+  --muted: #aaa6a4;
+  --quiet: #908b89;
   --accent: #e1725d;
   --accent-fill: #b93b2c;
   --accent-hover: #a93225;
@@ -221,7 +221,7 @@ svg {
     color 0.2s;
 }
 .nav-item:hover {
-  background: #2b2420;
+  background: #292020;
   color: var(--text);
 }
 .nav-item.active {
@@ -430,11 +430,11 @@ main {
   background: var(--accent-hover);
 }
 .button-dark {
-  background: #2a201c;
+  background: #261b1b;
   color: var(--accent);
 }
 .button-dark:hover {
-  background: #3c2620;
+  background: #3a2220;
 }
 .button-secondary {
   border-color: var(--border);
@@ -482,7 +482,7 @@ main {
   width: 100%;
   height: auto;
   display: block;
-  filter: drop-shadow(6px 30px 22px #0a100e75);
+  filter: drop-shadow(6px 30px 22px #00000075);
 }
 .art-tag {
   display: flex;
@@ -491,7 +491,7 @@ main {
   font-size: 7px;
   letter-spacing: 1.4px;
   border: 1px solid #9a5f4b55;
-  background: #29201cdf;
+  background: #261c1cdf;
   border-radius: 4px;
   padding: 9px 12px;
   position: absolute;
@@ -769,9 +769,9 @@ main {
   border: 1px solid #e9c37f22;
 }
 .severity-low {
-  background: #c6afa10d;
-  color: #c6afa1;
-  border: 1px solid #c6afa122;
+  background: #b6b0ad0d;
+  color: #b6b0ad;
+  border: 1px solid #b6b0ad22;
 }
 .preview-card h3 {
   font-size: 16px;
@@ -1093,11 +1093,11 @@ select option {
 .anomaly-card:hover {
   border-color: #ad6956;
   transform: translateY(-3px);
-  box-shadow: 0 14px 35px #10160f44;
+  box-shadow: 0 14px 35px #00000044;
 }
 .anomaly-visual {
   position: relative;
-  background: #202422;
+  background: #202020;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
   width: 100%;
@@ -1117,7 +1117,7 @@ select option {
   border: 1px solid #74554a;
   border-radius: 3px;
   padding: 3px 6px;
-  background: #241f1bea;
+  background: #211b1bea;
   font-size: 7px;
   color: var(--muted);
   letter-spacing: 1px;
@@ -1132,7 +1132,7 @@ select option {
   height: 24px;
   border: 1px solid #7a4f42;
   border-radius: 50%;
-  background: #241f1bc9;
+  background: #211b1bc9;
   color: var(--accent);
 }
 .anomaly-card-body {
@@ -1228,7 +1228,7 @@ select option {
   animation: modal-in 0.25s ease;
 }
 .issue-dialog::backdrop {
-  background: #110d0bd9;
+  background: #0c0c0cd9;
   backdrop-filter: blur(7px);
 }
 .modal-top {
@@ -1658,15 +1658,15 @@ select option {
 }
 .next-logo {
   font-size: 38px;
-  background: #101310;
+  background: #101010;
   font-weight: 400;
   line-height: 1;
   color: var(--text);
   font-family: Arial, sans-serif;
 }
 .react-logo {
-  color: #9dc5bf;
-  background: #b2d6d807;
+  color: #a8c3e2;
+  background: #a8c3e207;
 }
 .ts-logo {
   font-size: 27px;
@@ -2146,7 +2146,7 @@ select option {
   }
   .hero-copy > p {
     max-width: 390px;
-    color: #bdb3ad;
+    color: #b8b3b0;
   }
   .hero-actions {
     position: relative;
@@ -2338,7 +2338,7 @@ select option {
     position: fixed;
     inset: 0;
     z-index: 50;
-    background: #110d0bd9;
+    background: #0c0c0cd9;
     border: 0;
     backdrop-filter: blur(4px);
   }

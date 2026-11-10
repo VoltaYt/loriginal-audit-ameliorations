@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { AnomaliesExplorer } from "@/components/anomalies-explorer";
-import { AuditNotice, PageHeading } from "@/components/ui";
+import { PageHeading } from "@/components/ui";
 
 export const metadata: Metadata = { title: "Les anomalies" };
 
@@ -14,7 +14,6 @@ export default function AnomaliesPage() {
         accent="font la différence."
         description="Les problèmes repérés sur loriginal.org et les pistes pour les corriger."
       />
-      <AuditNotice />
       <Suspense
         fallback={<div className="loading-state">Chargement des constats…</div>}
       >

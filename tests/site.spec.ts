@@ -48,19 +48,19 @@ test("les quatre pages sont accessibles depuis la navigation principale", async 
   expect(errors).toEqual([]);
 });
 
-test("les vingt constats conservent la numérotation originale", async ({
+test("les dix-huit constats ont une numérotation continue sans dièse", async ({
   page,
 }) => {
-  const expectedNumbers = [
-    1, 2, 5, 7, 8, 9, 11, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-  ];
+  const expectedNumbers = Array.from({ length: 18 }, (_, index) => index + 1);
+  expect(anomalies.map((item) => item.id)).not.toContain("placeholder-courriel");
+  expect(anomalies.map((item) => item.id)).not.toContain("contenu-fiscal-bureau");
   expect(anomalies.map((item) => Number(item.number))).toEqual(expectedNumbers);
   await page.goto("/anomalies");
-  await expect(page.locator(".anomaly-card")).toHaveCount(20);
+  await expect(page.locator(".anomaly-card")).toHaveCount(18);
   const numbers = await page.locator(".visual-number").allTextContents();
-  expect(numbers.map((number) => Number(number.replace(/\D/g, "")))).toEqual(
-    expectedNumbers,
-  );
+  expect(numbers.map(Number)).toEqual(expectedNumbers);
+  expect(numbers.every((number) => /^\d{2}$/.test(number.trim()))).toBe(true);
+  await expect(page.locator("main")).not.toContainText("PAS UNE CAPTURE DU SITE");
 });
 
 test("la recherche, son état vide et la réinitialisation fonctionnent", async ({
@@ -80,7 +80,7 @@ test("la recherche, son état vide et la réinitialisation fonctionnent", async 
     .getByRole("button", { name: /Réinitialiser les filtres/i })
     .click();
   await expect(search).toHaveValue("");
-  await expect(page.locator(".anomaly-card")).toHaveCount(20);
+  await expect(page.locator(".anomaly-card")).toHaveCount(18);
 });
 
 test("catégorie et recherche se combinent sans perdre le filtre", async ({
@@ -91,19 +91,19 @@ test("catégorie et recherche se combinent sans perdre le filtre", async ({
     name: "Filtrer les anomalies par catégorie",
   });
   await filters
-    .getByRole("button", { name: "Formulaires", exact: true })
+    .getByRole("button", { name: "Données", exact: true })
     .click();
-  await expect(page.locator(".anomaly-card")).toHaveCount(2);
+  await expect(page.locator(".anomaly-card")).toHaveCount(4);
   await expect(page.getByRole("combobox", { name: /priorité/i })).toHaveCount(0);
-  await page.getByRole("searchbox", { name: "Rechercher une anomalie" }).fill("location");
+  await page.getByRole("searchbox", { name: "Rechercher une anomalie" }).fill("Lévis");
   await expect(page.locator(".anomaly-card")).toHaveCount(1);
-  await expect(page.locator(".anomaly-card")).toContainText(/location/i);
+  await expect(page.locator(".anomaly-card")).toContainText(/villes/i);
   await expect(
-    filters.getByRole("button", { name: "Formulaires", exact: true }),
+    filters.getByRole("button", { name: "Données", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
   await page.getByRole("button", { name: "Effacer la recherche" }).click();
-  await expect(page.locator(".anomaly-card")).toHaveCount(2);
-  await expect(filters.getByRole("button", { name: "Formulaires", exact: true }))
+  await expect(page.locator(".anomaly-card")).toHaveCount(4);
+  await expect(filters.getByRole("button", { name: "Données", exact: true }))
     .toHaveAttribute("aria-pressed", "true");
 });
 
@@ -122,20 +122,20 @@ test("une fiche ouvre une modale accessible avec illustration et navigation", as
   const source = dialog.locator("a.issue-source");
   await expect(source).toHaveAttribute(
     "href",
-    "https://www.loriginal.org/fr/peinture/main-au-doigt-leve-samantha-regan-96308",
+    "https://www.loriginal.org/fr/peintures",
   );
   await expect(source).toHaveAttribute("target", "_blank");
   await expect(source).toHaveAttribute("rel", /noopener/);
   await expect(source).toHaveAttribute("rel", /noreferrer/);
-  await expect(dialog.locator(".modal-description")).toContainText("Samantha Regan");
+  await expect(dialog.locator(".modal-description")).toContainText("7 200 025 $");
   await expect(dialog.locator(".recommendation-box")).toBeVisible();
   await expect(dialog.getByText(/résultat attendu/i)).toHaveCount(0);
   await expect(page.locator(".severity, .unconfirmed")).toHaveCount(0);
   await expect(dialog).not.toContainText("Le relevé utilisateur du 9 novembre 2026 rapporte");
   await expect(dialog.locator(".modal-image").getByRole("img")).toBeVisible();
-  await expect(dialog.locator(".image-caption")).toContainText(
-    /illustration|capture/i,
-  );
+  await expect(dialog.locator(".modal-top")).toContainText("LE CONSTAT / 1");
+  await expect(dialog.locator(".modal-top")).not.toContainText("#");
+  await expect(dialog).not.toContainText("PAS UNE CAPTURE DU SITE");
   await expect(
     dialog.getByRole("button", { name: "Précédent", exact: true }),
   ).toBeDisabled();
@@ -146,6 +146,50 @@ test("une fiche ouvre une modale accessible avec illustration et navigation", as
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).not.toBeVisible();
   await expect(page).toHaveURL(/\/anomalies$/);
+});
+
+test("les captures corrigent les compteurs et complètent les pages sources", async ({
+  page,
+}) => {
+  await page.goto("/anomalies?anomalie=compteurs-artistes");
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator(".modal-description")).toContainText("850");
+  await expect(dialog.locator(".modal-description")).toContainText("13 724");
+  await expect(dialog).not.toContainText(/1 100|13 464/);
+  await expect(dialog.locator("a.issue-source")).toHaveCount(2);
+  expect(
+    await dialog.locator("a.issue-source").evaluateAll((links) =>
+      links.map((link) => link.getAttribute("href")),
+    ),
+  ).toEqual([
+    "https://www.loriginal.org/fr/artistes",
+    "https://www.loriginal.org/fr/devenir-artiste-numerique",
+  ]);
+
+  for (const [id, urls] of [
+    [
+      "espacement-faq-bureau",
+      ["https://www.loriginal.org/fr/etudes-de-cas/decore-bureau"],
+    ],
+    [
+      "pickart-footer",
+      [
+        "https://www.loriginal.org/fr/pickart/",
+        "https://www.loriginal.org/fr/pickart/artistes-favoris",
+      ],
+    ],
+  ] as const) {
+    await page.goto(`/anomalies?anomalie=${id}`);
+    await expect(dialog).toBeVisible();
+    await expect(dialog).not.toContainText("Lien à renseigner");
+    await expect(dialog.locator("a.issue-source")).toHaveCount(urls.length);
+    expect(
+      await dialog.locator("a.issue-source").evaluateAll((links) =>
+        links.map((link) => link.getAttribute("href")),
+      ),
+    ).toEqual([...urls]);
+  }
 });
 
 test("fermer une modale restitue le focus à la fiche activée", async ({
@@ -179,7 +223,7 @@ test("un lien direct ouvre le bon constat et un identifiant inconnu reste récup
   await expect(page.getByText("Cette fiche n’existe pas.")).toBeVisible();
   await page.getByRole("button", { name: /Revenir à la liste/i }).click();
   await expect(page).toHaveURL(/\/anomalies$/);
-  await expect(page.locator(".anomaly-card")).toHaveCount(20);
+  await expect(page.locator(".anomaly-card")).toHaveCount(18);
 });
 
 test("les améliorations se filtrent et leurs détails sont dépliables", async ({

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, ClipboardList } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -36,17 +36,6 @@ export function PageHeading({
         {children}
       </div>
     </section>
-  );
-}
-
-export function AuditNotice() {
-  return (
-    <div className="demo-notice">
-      <ClipboardList size={16} />
-      <p>
-        Les visuels sont des illustrations des problèmes, pas des captures du site.
-      </p>
-    </div>
   );
 }
 

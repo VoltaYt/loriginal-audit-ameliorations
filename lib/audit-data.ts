@@ -29,17 +29,17 @@ export const anomalies: Anomaly[] = [
     number: "01",
     title: "Des prix affichés à plusieurs millions",
     summary:
-      "« Main au Doigt Levé », de Samantha Regan, affiche un prix de plusieurs millions.",
+      "« Main au Doigt Levé », de Samantha Regan, est affichée à 7 200 025 $ dans le catalogue.",
     category: "Données",
-    page: "Catalogue et fiche de « Main au Doigt Levé » — Samantha Regan",
+    page: "Catalogue des peintures — « Main au Doigt Levé », Samantha Regan",
     sources: [
       {
-        label: "Voir « Main au Doigt Levé »",
-        url: "https://www.loriginal.org/fr/peinture/main-au-doigt-leve-samantha-regan-96308",
+        label: "Voir le catalogue des peintures",
+        url: "https://www.loriginal.org/fr/peintures",
       },
     ],
     description:
-      "« Main au Doigt Levé », de Samantha Regan, affiche un prix de plusieurs millions. Le montant, la devise et le format des nombres méritent d’être contrôlés.",
+      "La carte de « Main au Doigt Levé » affiche 7 200 025 $ pour une œuvre de 4 × 30 po. Le montant et son format doivent être comparés au prix validé par l’artiste.",
     recommendation:
       "Comparer le prix affiché au prix validé par l’artiste et corriger la conversion ou le formatage si nécessaire.",
     screenshots: [],
@@ -68,7 +68,7 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "livraison-incoherente",
-    number: "05",
+    number: "03",
     title: "Des destinations de livraison contradictoires",
     summary:
       "La FAQ évoque 13 pays, dont Canada, États-Unis et France, tandis qu’un autre contenu annonce le monde entier.",
@@ -93,8 +93,8 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "tarif-programme-numerique",
-    number: "07",
-    title: "Un programme numérique gratuit ou à 28 $ par mois ?",
+    number: "04",
+    title: "Sans abonnement ou à 28 $ par mois ?",
     summary:
       "Les présentations du programme artiste numérique annoncent des conditions tarifaires différentes.",
     category: "Contenu",
@@ -106,7 +106,7 @@ export const anomalies: Anomaly[] = [
       },
     ],
     description:
-      "Le programme artiste numérique est présenté comme gratuit, mais un abonnement de 28 $ par mois est aussi annoncé. Les conditions de l’offre ne sont pas claires.",
+      "Le programme artiste numérique indique « Sans abonnement », puis affiche « 28 $/mois » sous le bouton de candidature. Les conditions de l’offre ne sont pas claires.",
     recommendation:
       "Préciser le tarif, la devise et les éventuelles conditions de gratuité dans toutes les présentations du programme.",
     screenshots: [],
@@ -114,78 +114,53 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "faq-programmes-artistes",
-    number: "08",
+    number: "05",
     title: "Une FAQ ambiguë sur les œuvres numériques",
     summary:
-      "Le refus des prints et du digital semble contredire l’existence d’un programme numérique.",
+      "Deux réponses de FAQ se contredisent sur les tirages et les œuvres numériques.",
     category: "Contenu",
-    page: "FAQ — œuvres acceptées et programme artiste numérique",
+    page: "Programme artiste numérique — FAQ",
     sources: [
       {
-        label: "Voir la FAQ des programmes artistes",
-        url: "https://www.loriginal.org/fr/devenir-artiste",
+        label: "Voir la FAQ du programme numérique",
+        url: "https://www.loriginal.org/fr/devenir-artiste-numerique",
       },
     ],
     description:
-      "La FAQ refuse les prints et les œuvres numériques, alors qu’un programme numérique existe. Il manque une distinction claire entre les deux programmes.",
+      "Une réponse affirme que seules les œuvres originales physiques sont acceptées et refuse les impressions et le numérique. Une autre indique que le parcours accueille uniquement les tirages et les œuvres numériques.",
     recommendation:
-      "Préciser les types d’œuvres acceptés pour chaque programme et ajouter les liens correspondants.",
+      "Retirer la réponse contradictoire et préciser les œuvres acceptées dans ce programme.",
     screenshots: [],
     illustration: "hierarchy",
   },
   {
     id: "compteurs-artistes",
-    number: "09",
+    number: "06",
     title: "Des compteurs d’artistes difficiles à comparer",
     summary:
-      "Les valeurs 850, 1 100 et 13 464 apparaissent sans définition commune suffisamment claire.",
+      "« Plus de 850 artistes vivants » et « 13 724 artistes représentés » apparaissent sur deux pages.",
     category: "Données",
-    page: "Pages publiques affichant des chiffres sur la communauté d’artistes",
+    page: "Liste des artistes et programme artiste numérique",
     sources: [
       {
         label: "Liste des artistes",
         url: "https://www.loriginal.org/fr/artistes",
       },
       {
-        label: "Accueil",
-        url: "https://www.loriginal.org/fr",
-      },
-      {
-        label: "Programme artistes",
-        url: "https://www.loriginal.org/fr/devenir-artiste",
+        label: "Programme artiste numérique",
+        url: "https://www.loriginal.org/fr/devenir-artiste-numerique",
       },
     ],
     description:
-      "Les nombres 850, 1 100 et 13 464 artistes apparaissent selon les pages. Sans précision sur les populations ou les dates, ils sont difficiles à comparer.",
+      "La page des artistes annonce « Plus de 850 artistes vivants ». Le programme numérique affiche « 13 724 artistes représentés ». Les deux compteurs ne précisent pas s’ils désignent la même communauté.",
     recommendation:
       "Indiquer ce que mesure chaque compteur et harmoniser ceux qui parlent de la même communauté.",
     screenshots: [],
     illustration: "performance",
   },
   {
-    id: "placeholder-courriel",
-    number: "11",
-    title: "Une adresse d’exemple trop spécifique",
-    summary:
-      "Le placeholder « artur@artur.com » pourrait être remplacé par un exemple de format plus neutre.",
-    category: "Formulaires",
-    page: "Formulaire comportant le placeholder courriel « artur@artur.com »",
-    sources: [
-      {
-        label: "Voir le formulaire de bénévolat",
-        url: "https://www.loriginal.org/fr/benevolat",
-      },
-    ],
-    description:
-      "Le champ courriel utilise « artur@artur.com » comme exemple. Une adresse neutre aiderait à comprendre le format attendu.",
-    recommendation:
-      "Utiliser « nom@exemple.com » et conserver un libellé visible pour le champ.",
-    screenshots: [],
-    illustration: "form",
-  },
-  {
     id: "titre-oeuvre-surcharge",
-    number: "13",
+    number: "07",
     title: "Un titre mêlé aux informations techniques",
     summary:
       "Le titre de « Another Year I Cannot Do Alone » contient dimensions, informations techniques, prix et devises.",
@@ -198,7 +173,7 @@ export const anomalies: Anomaly[] = [
       },
     ],
     description:
-      "Le titre « Another Year I Cannot Do Alone » regroupe aussi des dimensions, des informations techniques, un prix et des devises. L’ensemble devient difficile à lire.",
+      "Le titre contient « “Another Year I Cannot Do Alone” 30x40 | Acrylic, Watercolor, Oil 12,800,000.00 USD (USD) ». La carte affiche aussi les dimensions 40 × 30 po et le prix 15 360 080 $, ce qui mélange et répète les informations.",
     recommendation:
       "Séparer le titre, les dimensions, la technique et le prix dans des champs distincts, en conservant l’URL existante.",
     screenshots: [],
@@ -206,10 +181,10 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "villes-normalisation",
-    number: "14",
+    number: "08",
     title: "Des noms de villes présentés de façon variable",
     summary:
-      "« Montreal / Montréal » et « levis / Lévis » illustrent des variantes d’écriture à harmoniser.",
+      "Les fiches affichent notamment « levis », « Lévis » et « Maple. ont. » avec des formats différents.",
     category: "Données",
     page: "Profils d’artistes et affichages de leur localisation",
     sources: [
@@ -219,18 +194,18 @@ export const anomalies: Anomaly[] = [
       },
     ],
     description:
-      "Les variantes « Montreal / Montréal » et « levis / Lévis » donnent une présentation irrégulière des localisations.",
+      "Abie est localisé à « levis, Canada », A.Marie Langlois à « Lévis, Canada » et Adi Zur à « Maple. ont., Canada ». La casse, les accents et les abréviations ne sont pas harmonisés.",
     recommendation:
-      "Harmoniser la casse et les accents, tout en conservant les traductions adaptées à chaque langue.",
+      "Uniformiser la casse, les accents et les abréviations des localisations, en respectant les noms des villes.",
     screenshots: [],
     illustration: "hierarchy",
   },
   {
     id: "validation-location-galerie",
-    number: "16",
+    number: "09",
     title: "Des saisies invalides non signalées dans la location",
     summary:
-      "Le formulaire de location doit mieux encadrer champs obligatoires, dates, courriel et nombre d’invités.",
+      "Le formulaire accepte visuellement un nombre d’invités négatif, des dates inversées et un courriel invalide.",
     category: "Formulaires",
     page: "Formulaire de location de galerie",
     sources: [
@@ -240,7 +215,7 @@ export const anomalies: Anomaly[] = [
       },
     ],
     description:
-      "Le formulaire de location ne signale pas certaines saisies invalides : champs obligatoires, dates, courriel et nombre d’invités.",
+      "La capture montre −1 invité, une fin le 6 novembre avant le début le 9 novembre, et « allo » dans le champ courriel. Aucun message d’erreur n’est affiché à côté de ces saisies.",
     recommendation:
       "Afficher les erreurs près des champs, valider les contraintes côté client et serveur et conserver les informations déjà saisies.",
     screenshots: [],
@@ -248,13 +223,18 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "espacement-faq-bureau",
-    number: "17",
+    number: "10",
     title: "Des questions de FAQ trop proches des bords",
     summary:
       "La FAQ liée à « Décore bureau » manque de marges internes sur ses questions à fond bleu foncé.",
     category: "Interface",
     page: "FAQ « Décore bureau »",
-    sources: [],
+    sources: [
+      {
+        label: "Voir la FAQ « Décore bureau »",
+        url: "https://www.loriginal.org/fr/etudes-de-cas/decore-bureau",
+      },
+    ],
     description:
       "Les questions sur fond bleu foncé de la FAQ « Décore bureau » sont trop proches des bords. Le texte et les icônes manquent d’espace.",
     recommendation:
@@ -263,45 +243,29 @@ export const anomalies: Anomaly[] = [
     illustration: "contrast",
   },
   {
-    id: "contenu-fiscal-bureau",
-    number: "18",
-    title: "Une affirmation fiscale à contextualiser",
-    summary:
-      "« Actif financier amortissable » semble trop général dans le cas du bureau de Céline.",
-    category: "Contenu",
-    page: "Étude de cas « Le bureau de Céline repensé par une œuvre »",
-    sources: [],
-    description:
-      "Le cas « Le bureau de Céline repensé par une œuvre » emploie l’expression « actif financier amortissable » sans préciser les conditions fiscales applicables.",
-    recommendation:
-      "Faire valider la formulation par un spécialiste et préciser les conditions dans lesquelles elle s’applique.",
-    screenshots: [],
-    illustration: "hierarchy",
-  },
-  {
     id: "grille-peintures-anglaise",
-    number: "19",
+    number: "11",
     title: "Une grille de peintures aux formats irréguliers",
     summary:
-      "Le catalogue anglais pourrait mieux aligner les cartes tout en préservant chaque œuvre entière.",
+      "Les cartes du catalogue ont des hauteurs irrégulières qui décalent les titres et les informations.",
     category: "Images",
-    page: "Catalogue des peintures — version anglaise",
+    page: "Catalogue des peintures — format de la grille",
     sources: [
       {
-        label: "Voir le catalogue anglais",
-        url: "https://www.loriginal.org/en/paintings",
+        label: "Voir le catalogue des peintures",
+        url: "https://www.loriginal.org/fr/peintures",
       },
     ],
     description:
-      "Les cartes du catalogue anglais ont des formats irréguliers qui compliquent la lecture de la grille.",
+      "Dans le catalogue, les formats des images et des cartes créent des décalages entre les colonnes. Une grille aux cadres réguliers rendrait les œuvres plus faciles à parcourir.",
     recommendation:
-      "Utiliser des cadres cohérents et des images centrées, sans recadrer ni déformer les œuvres.",
+      "Harmoniser le format des cadres et l’alignement des informations, tout en affichant chaque peinture entière sans recadrage.",
     screenshots: [],
     illustration: "images",
   },
   {
     id: "oeuvres-adoptees",
-    number: "20",
+    number: "12",
     title: "Des œuvres adoptées mêlées aux disponibles",
     summary:
       "Le catalogue d’achat pourrait mieux distinguer les œuvres vendues sans les retirer du portfolio.",
@@ -322,7 +286,7 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "liste-artistes",
-    number: "21",
+    number: "13",
     title: "Une longue liste d’artistes sans pagination",
     summary:
       "La liste des artistes ne propose pas de pagination pour faciliter le parcours.",
@@ -343,7 +307,7 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "profil-incomplet",
-    number: "22",
+    number: "14",
     title: "Des espaces vides dans un profil artiste",
     summary:
       "Le profil de Zen-ruffinen Véronique laisse des blancs pour sa biographie ou sa ville non renseignées.",
@@ -364,7 +328,7 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "carte-artiste-inactive",
-    number: "23",
+    number: "15",
     title: "Une carte artiste qui ne se retourne pas",
     summary:
       "« Retournez la carte » ne fonctionne pas dans le composant « Créez-la avec Fish vik ».",
@@ -385,15 +349,24 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "pickart-footer",
-    number: "24",
+    number: "16",
     title: "Un pied de page absent des artistes favoris",
     summary:
       "Le pied de page est absent de la page « Artistes favoris » de PickArt.",
     category: "Interface",
     page: "PickArt — Artistes favoris",
-    sources: [],
+    sources: [
+      {
+        label: "Commencer le parcours PickArt",
+        url: "https://www.loriginal.org/fr/pickart/",
+      },
+      {
+        label: "Voir les artistes favoris après les swipes",
+        url: "https://www.loriginal.org/fr/pickart/artistes-favoris",
+      },
+    ],
     description:
-      "La page « Artistes favoris » de PickArt ne présente pas le pied de page habituel.",
+      "Après les swipes de PickArt, la page « Artistes favoris » ne présente pas le pied de page habituel et ses liens.",
     recommendation:
       "Rétablir le pied de page et vérifier qu’il reste accessible lors du défilement.",
     screenshots: [],
@@ -401,10 +374,10 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "echelle-tableau",
-    number: "25",
+    number: "17",
     title: "Une mise en situation à l’échelle incohérente",
     summary:
-      "« Main au Doigt Levé », donnée autour de 10 cm de large, paraît bien plus grande dans son décor.",
+      "« Main au Doigt Levé » mesure 10 × 76 cm, mais paraît beaucoup plus large dans la prévisualisation du bureau.",
     category: "Images",
     page: "« Main au Doigt Levé » — Samantha Regan, visuel de mise en situation",
     sources: [
@@ -414,7 +387,7 @@ export const anomalies: Anomaly[] = [
       },
     ],
     description:
-      "« Main au Doigt Levé » est indiquée autour de 10 cm de large, mais apparaît beaucoup plus grande dans son décor.",
+      "La vue « Taille réelle » indique 10 × 76 cm et montre une œuvre très étroite. Dans la prévisualisation du bureau, la même œuvre paraît nettement plus large : les deux représentations ne sont pas cohérentes.",
     recommendation:
       "Confirmer les dimensions et les unités, puis ajuster la mise en situation à l’échelle réelle de l’œuvre.",
     screenshots: [],
@@ -422,7 +395,7 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "photos-notre-histoire",
-    number: "26",
+    number: "18",
     title: "Des photographies floues dans « Notre histoire »",
     summary:
       "Les photographies semblent manquer de définition à leur taille d’affichage.",
@@ -472,19 +445,17 @@ export const improvements: Improvement[] = [
     id: "coherence-editoriale",
     title: "Donner une seule version des informations clés",
     description:
-      "Clarifier destinations de livraison, tarifs, programmes artistes et affirmations fiscales à partir de sources validées.",
+      "Clarifier les destinations de livraison, les tarifs et les conditions des programmes artistes.",
     category: "Contenu",
     icon: "message",
     ticketIds: [
       "livraison-incoherente",
       "tarif-programme-numerique",
       "faq-programmes-artistes",
-      "contenu-fiscal-bureau",
     ],
     details: [
       "Centraliser la liste des pays desservis et le tarif confirmé du programme numérique avec leurs conditions.",
-      "Distinguer règles des programmes physique et numérique au lieu de supprimer une restriction hors contexte.",
-      "Faire valider le contenu fiscal par un spécialiste et harmoniser les formulations des pages FR / EN.",
+      "Harmoniser les réponses de FAQ sur les œuvres acceptées dans le programme numérique.",
     ],
   },
   {
@@ -510,12 +481,11 @@ export const improvements: Improvement[] = [
     id: "formulaires-fiables",
     title: "Accompagner et valider chaque saisie",
     description:
-      "Clarifier les champs et signaler les erreurs de location sans faire perdre les informations déjà saisies.",
+      "Signaler les erreurs du formulaire de location sans faire perdre les informations déjà saisies.",
     category: "Formulaires",
     icon: "message",
-    ticketIds: ["placeholder-courriel", "validation-location-galerie"],
+    ticketIds: ["validation-location-galerie"],
     details: [
-      "Remplacer le placeholder spécifique par « nom@exemple.com », avec libellé visible et attributs email adaptés.",
       "Définir les règles de champs obligatoires, dates, courriel et capacité avec des erreurs explicites.",
       "Vérifier puis compléter validations client et serveur, conserver les saisies et tester en environnement dédié.",
     ],
@@ -534,7 +504,7 @@ export const improvements: Improvement[] = [
       "pickart-footer",
     ],
     details: [
-      "Retrouver la FAQ signalée et ajuster padding responsive et gaps sans couper les contenus longs.",
+      "Aérer les questions de la FAQ « Décore bureau » sans couper les contenus longs.",
       "Prévoir les profils incomplets sans inventer biographie ou localisation et masquer l’année de naissance absente.",
       "Diagnostiquer la carte à retourner et le footer PickArt puis tester clic, clavier, défilement et responsive.",
     ],
@@ -552,7 +522,7 @@ export const improvements: Improvement[] = [
       "photos-notre-histoire",
     ],
     details: [
-      "Régulariser les contenants du catalogue anglais avec centrage et contain, sans recadrer les peintures.",
+      "Régulariser les cadres du catalogue avec centrage des images, sans recadrer les peintures.",
       "Valider dimensions, unités et ratio de « Main au Doigt Levé » avant de recalibrer sa mise en situation.",
       "Partir de sources adaptées, contrôler srcset / sizes et choisir des variantes WebP / AVIF sans agrandir les vignettes.",
     ],

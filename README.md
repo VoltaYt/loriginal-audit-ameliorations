@@ -27,7 +27,7 @@ npm run start
 | Route            | Contenu                                                                      |
 | ---------------- | ---------------------------------------------------------------------------- |
 | `/`              | Présentation, motivations, démarche et aperçu des constats                   |
-| `/anomalies`     | 20 constats, recherche, catégories et modales de détails          |
+| `/anomalies`     | 18 constats, recherche, catégories et modales de détails          |
 | `/ameliorations` | Six axes d’amélioration, liés aux constats concernés, avec pistes dépliables |
 | `/technologies`  | Codex, Next.js, React, TypeScript et CSS                       |
 
@@ -35,9 +35,9 @@ Les fiches sont partageables par URL : `/anomalies?anomalie=prix-incoherents`. U
 
 ## Contenu de l’audit et captures
 
-Toutes les données sont centralisées dans **`lib/audit-data.ts`**. Les 20 numéros originaux sont préservés : 1, 2, 5, 7, 8, 9, 11, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 et 26. Les points retirés n’ont pas été réintroduits.
+Toutes les données sont centralisées dans **`lib/audit-data.ts`**. Les 18 constats sont numérotés de 1 à 18, sans saut. Les identifiants des fiches restent stables pour conserver les liens partagés.
 
-**Aucune capture du site n’a été fournie.** Les visuels intégrés sont des schémas explicatifs SVG, clairement identifiés comme tels. Pour ajouter les vraies captures :
+Les visuels explicatifs s’inspirent des captures fournies pour montrer les problèmes et les pistes de correction. Les liens des pages concernées sont renseignés dans chaque fiche. Pour ajouter des captures à la galerie :
 
 1. Déposer les images dans `public/audit/` avec des noms descriptifs.
 2. Renseigner `screenshots` pour le constat correspondant dans `lib/audit-data.ts` :
@@ -63,7 +63,7 @@ npm run build
 npm run test:e2e
 ```
 
-Playwright vérifie les parcours sur ordinateur et mobile : navigation, 20 constats et numérotation, recherche, combinaisons de filtres, modales, liens directs, focus clavier, détails des améliorations et absence de débordement horizontal.
+Playwright vérifie les parcours sur ordinateur et mobile : navigation, 18 constats et numérotation, recherche, combinaisons de filtres, modales, liens directs, focus clavier, détails des améliorations et absence de débordement horizontal.
 
 Le navigateur Chromium système est utilisé s’il existe dans `/usr/bin/chromium`. Sinon, l’installer avec `npx playwright install chromium`, ou définir `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` vers un navigateur compatible. Les tests démarrent un serveur de développement si aucun serveur n’utilise déjà le port 3000; pour vérifier la production, lancer préalablement `npm run build` puis `npm run start` dans un autre terminal.
 
@@ -73,7 +73,7 @@ Le navigateur Chromium système est utilisé s’il existe dans `/usr/bin/chromi
 app/                         Pages, layout, styles et icône
 components/                  Navigation, filtres, modale et illustrations
 lib/audit-data.ts            Constats et propositions typés
-public/audit/                Captures réelles à ajouter
+public/audit/                Captures et ressources de l’audit
 tests/site.spec.ts           Parcours Playwright
 ```
 

@@ -1,922 +1,422 @@
 import type { ReactNode } from "react";
 
 const c = {
-  bg: "#202422",
-  panel: "#302a26",
-  dark: "#171c18",
-  line: "#58463b",
-  muted: "#b6a69b",
-  cream: "#f0f0e6",
+  bg: "#191919",
+  panel: "#222222",
+  dark: "#121212",
+  line: "#414141",
+  muted: "#b6b1ae",
+  text: "#f0ece8",
   accent: "#e1725d",
-  amber: "#e6b18b",
+  red: "#b93b2c",
 };
 
 const titles: Record<string, string> = {
-  "prix-incoherents":
-    "Schéma d’un prix atypique dont le montant et le format doivent être vérifiés",
-  "pagination-peintures":
-    "Schéma comparant une pagination dense et une pagination compacte",
-  "livraison-incoherente":
-    "Schéma de deux formulations à harmoniser sur les destinations de livraison",
-  "tarif-programme-numerique":
-    "Schéma de deux présentations tarifaires différentes du programme numérique",
-  "faq-programmes-artistes":
-    "Schéma distinguant les programmes d’œuvres physiques et numériques",
-  "compteurs-artistes":
-    "Schéma de compteurs dont les populations et les dates sont à préciser",
-  "placeholder-courriel":
-    "Schéma d’un champ courriel et d’un exemple de format neutre",
-  "titre-oeuvre-surcharge":
-    "Schéma séparant le titre artistique et les informations techniques",
-  "villes-normalisation":
-    "Schéma de variantes de noms de villes à normaliser selon la langue",
-  "validation-location-galerie":
-    "Schéma de champs et de dates à valider dans une demande de location",
-  "espacement-faq-bureau":
-    "Schéma comparant des espacements de questions de FAQ",
-  "contenu-fiscal-bureau":
-    "Schéma d’une affirmation fiscale à faire relire dans son contexte",
-  "grille-peintures-anglaise":
-    "Schéma d’une grille cohérente qui conserve les œuvres entières",
-  "oeuvres-adoptees":
-    "Schéma distinguant œuvres adoptées et œuvres disponibles",
-  "liste-artistes":
-    "Schéma d’une longue liste d’artistes et d’une pagination proposée",
-  "profil-incomplet":
-    "Schéma d’un profil artiste comportant des informations manquantes",
-  "carte-artiste-inactive":
-    "Schéma d’une carte artiste et de son interaction de retournement à contrôler",
-  "pickart-footer":
-    "Schéma du pied de page à retrouver sur les artistes favoris PickArt",
-  "echelle-tableau":
-    "Schéma du contrôle des unités et de l’échelle d’un tableau dans un décor",
-  "photos-notre-histoire":
-    "Schéma comparant une image floue et une source adaptée",
+  "prix-incoherents": "Main au Doigt Levé : prix affiché de 7 200 025 dollars",
+  "pagination-peintures": "Pagination du catalogue : nombreux raccourcis et version compacte",
+  "livraison-incoherente": "Livraison : 13 pays dans le catalogue, partout dans le monde sur l’accueil",
+  "tarif-programme-numerique": "Le programme numérique indique sans abonnement et 28 dollars par mois",
+  "faq-programmes-artistes": "Deux réponses contradictoires sur les tirages et les œuvres numériques",
+  "compteurs-artistes": "Plus de 850 artistes peintres et 13 724 artistes représentés",
+  "titre-oeuvre-surcharge": "Le titre de l’œuvre contient dimensions, techniques, prix et devise",
+  "villes-normalisation": "Localisations : levis, Lévis et Maple. ont.",
+  "validation-location-galerie": "Formulaire : moins un invité, dates inversées et courriel allo",
+  "espacement-faq-bureau": "FAQ Décore bureau : texte collé aux bords et proposition avec marges",
+  "grille-peintures-anglaise": "Avant et après : grille irrégulière et contenants alignés, sans recadrer les œuvres",
+  "oeuvres-adoptees": "L’étiquette Adopté est éloignée des informations de l’œuvre dans le catalogue",
+  "liste-artistes": "Une longue grille d’artistes sans pagination, et une navigation proposée",
+  "profil-incomplet": "Le profil de Zen-ruffinen Véronique laisse un grand espace sans biographie",
+  "carte-artiste-inactive": "La carte Créez-la avec Fish vik ne se retourne pas après le clic",
+  "pickart-footer": "Artistes favoris PickArt : absence du pied de page habituel",
+  "echelle-tableau": "Une œuvre de 10 par 76 centimètres paraît bien plus large dans sa prévisualisation",
+  "photos-notre-histoire": "Photos d’équipe : définition insuffisante et proposition de sources adaptées",
 };
 
-function Label({
-  x,
-  y,
-  children,
-  accent = false,
+function Text({
+  x, y, children, size = 16, color = c.text, weight = 400, anchor,
 }: {
-  x: number;
-  y: number;
-  children: ReactNode;
-  accent?: boolean;
+  x: number; y: number; children: ReactNode; size?: number; color?: string;
+  weight?: number; anchor?: "start" | "middle" | "end";
 }) {
-  return (
-    <text
-      x={x}
-      y={y}
-      fill={accent ? c.accent : c.muted}
-      fontSize="12"
-      letterSpacing=".3"
-    >
-      {children}
-    </text>
-  );
+  return <text x={x} y={y} fill={color} fontSize={size} fontWeight={weight} textAnchor={anchor}>{children}</text>;
 }
 
-function Heading({ children }: { children: ReactNode }) {
-  return (
-    <text x="112" y="131" fill={c.cream} fontSize="21" fontWeight="600">
-      {children}
-    </text>
-  );
-}
-
-function Box({
-  x,
-  y,
-  width = 260,
-  height = 115,
-  children,
-  dashed = false,
-}: {
-  x: number;
-  y: number;
-  width?: number;
-  height?: number;
-  children?: ReactNode;
-  dashed?: boolean;
+function Lines({ x, y, lines, size = 16, color = c.text, gap = 24 }: {
+  x: number; y: number; lines: string[]; size?: number; color?: string; gap?: number;
 }) {
-  return (
-    <g>
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        rx="8"
-        fill={c.panel}
-        stroke={dashed ? c.accent : c.line}
-        strokeDasharray={dashed ? "5 5" : undefined}
-      />
-      {children}
-    </g>
-  );
+  return <>{lines.map((line, i) => <Text key={i} x={x} y={y + i * gap} size={size} color={color}>{line}</Text>)}</>;
 }
 
-function Arrow({
-  x,
-  y,
-  down = false,
-}: {
-  x: number;
-  y: number;
-  down?: boolean;
+function Label({ x, y, children, accent = false }: {
+  x: number; y: number; children: ReactNode; accent?: boolean;
 }) {
-  return (
-    <path
-      d={down ? `M${x} ${y}v30m-6-6 6 6 6-6` : `M${x} ${y}h32m-6-6 6 6-6 6`}
-      stroke={c.accent}
-      strokeWidth="1.5"
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  );
+  return <Text x={x} y={y} size={12} color={accent ? c.accent : c.muted} weight={600}>{children}</Text>;
 }
 
-function Art({
-  x,
-  y,
-  width = 100,
-  height = 100,
-  faded = false,
-}: {
-  x: number;
-  y: number;
-  width?: number;
-  height?: number;
-  faded?: boolean;
+function Panel({ x, y, width, height, children, accent = false, dashed = false }: {
+  x: number; y: number; width: number; height: number; children?: ReactNode;
+  accent?: boolean; dashed?: boolean;
 }) {
-  return (
-    <g opacity={faded ? 0.45 : 1}>
-      <rect x={x} y={y} width={width} height={height} rx="2" fill="#81533f" />
-      <circle
-        cx={x + width * 0.7}
-        cy={y + height * 0.28}
-        r={Math.min(width, height) * 0.15}
-        fill="#d8a071"
-      />
-      <path
-        d={`M${x} ${y + height * 0.82}L${x + width * 0.35} ${y + height * 0.35}L${x + width * 0.66} ${y + height * 0.76}L${x + width} ${y + height * 0.5}V${y + height}H${x}Z`}
-        fill="#b47752"
-      />
-      <path
-        d={`M${x} ${y + height * 0.94}L${x + width * 0.45} ${y + height * 0.72}L${x + width} ${y + height * 0.86}V${y + height}H${x}Z`}
-        fill="#54392c"
-      />
-    </g>
-  );
+  return <g><rect x={x} y={y} width={width} height={height} rx={10} fill={c.panel} stroke={accent ? c.accent : c.line} strokeDasharray={dashed ? "6 5" : undefined} />{children}</g>;
 }
 
-function PageButtons({
-  x,
-  y,
-  dense = false,
-}: {
-  x: number;
-  y: number;
-  dense?: boolean;
-}) {
-  const labels = dense
-    ? [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-      ]
-    : ["‹", "1", "…", "7", "8", "9", "…", "24", "›"];
-  const step = dense ? 31 : 42;
-  return (
-    <g>
-      {labels.map((label, i) => (
-        <g key={`${label}-${i}`}>
-          <rect
-            x={x + i * step}
-            y={y}
-            width={dense ? 26 : 34}
-            height="30"
-            rx="4"
-            fill={label === "8" ? c.accent : c.dark}
-            stroke={c.line}
-          />
-          <text
-            x={x + i * step + (dense ? 13 : 17)}
-            y={y + 20}
-            fill={label === "8" ? c.dark : c.cream}
-            textAnchor="middle"
-            fontSize="12"
-          >
-            {label}
-          </text>
-        </g>
-      ))}
-    </g>
-  );
+function Arrow({ x, y, down = false }: { x: number; y: number; down?: boolean }) {
+  return <path d={down ? `M${x} ${y}v25m-6-6 6 6 6-6` : `M${x} ${y}h28m-6-6 6 6-6 6`} stroke={c.accent} strokeWidth={2} fill="none" strokeLinecap="round" strokeLinejoin="round" />;
 }
 
-function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
+function Art({ x, y, width, height }: { x: number; y: number; width: number; height: number }) {
+  return <g>
+    <rect x={x} y={y} width={width} height={height} fill="#3d2927" stroke="#79645f" />
+    <path d={`M${x + width * .1} ${y + height * .85}L${x + width * .65} ${y + height * .12}L${x + width * .92} ${y + height * .7}L${x + width * .45} ${y + height * .95}Z`} fill="#a74a3a" />
+    <path d={`M${x + width * .18} ${y + height * .1}L${x + width * .8} ${y + height * .84}M${x + width * .1} ${y + height * .6}L${x + width * .83} ${y + height * .32}`} stroke="#d4c0b5" strokeWidth={Math.max(2, width * .035)} />
+  </g>;
+}
+
+function Pagination({ x, y, dense = false }: { x: number; y: number; dense?: boolean }) {
+  const labels = dense ? Array.from({ length: 18 }, (_, i) => String(i + 1)) : ["‹", "1", "…", "7", "8", "9", "…", "24", "›"];
+  const step = dense ? 36 : 42;
+  return <g>{labels.map((label, i) => <g key={i}>
+    <rect x={x + i * step} y={y} width={step - 5} height={33} rx={5} fill={label === "8" ? c.red : c.dark} stroke={c.line} />
+    <Text x={x + i * step + (step - 5) / 2} y={y + 22} size={14} anchor="middle">{label}</Text>
+  </g>)}</g>;
+}
+
+function Footer({ x, y, width }: { x: number; y: number; width: number }) {
+  return <g>
+    <path d={`M${x} ${y}h${width}`} stroke={c.line} />
+    {["Informations", "Liens utiles", "Nos adresses"].map((label, i) => <g key={label}>
+      <Text x={x + 10 + i * (width / 3)} y={y + 24} size={11} weight={600}>{label}</Text>
+      <path d={`M${x + 10 + i * (width / 3)} ${y + 36}h${width / 3 - 25}m-${width / 3 - 25} 13h${width / 3 - 45}`} stroke={c.line} strokeWidth={3} />
+    </g>)}
+    <Text x={x + width / 2} y={y + 78} size={11} color={c.muted} anchor="middle">© LOriginal · Tous droits réservés</Text>
+  </g>;
+}
+
+function Avatar({ x, y, pixelated = false }: { x: number; y: number; pixelated?: boolean }) {
+  return <g>
+    <rect x={x} y={y} width={60} height={74} fill="#393536" />
+    {pixelated ? <>
+      <path d={`M${x + 18} ${y + 10}h24v12h6v22H${x + 12}V${y + 22}h6Z`} fill="#b7a29b" />
+      <path d={`M${x + 6} ${y + 49}h48v25H${x + 6}Z`} fill="#6b4d49" />
+      <path d={`M${x + 20} ${y + 27}h7m8 0h7`} stroke="#65534e" strokeWidth={7} />
+    </> : <>
+      <ellipse cx={x + 30} cy={y + 28} rx={17} ry={21} fill="#b7a29b" />
+      <path d={`M${x + 6} ${y + 74}v-12c0-23 48-23 48 0v12Z`} fill="#6b4d49" />
+      <path d={`M${x + 21} ${y + 27}h5m8 0h5`} stroke="#65534e" strokeWidth={2} />
+    </>}
+  </g>;
+}
+
+function Diagram({ ticket }: { ticket?: string }) {
   switch (ticket) {
     case "prix-incoherents":
-      return (
-        <>
-          <Heading>Contrôler avant de corriger.</Heading>
-          <Art x={118} y={158} width={170} height={157} />
-          <Box x={332} y={159} width={345} height={154}>
-            <Label x={353} y={184}>
-              PRIX · DEVISE · SÉPARATEURS
-            </Label>
-            <text x="353" y="230" fill={c.cream} fontSize="33" fontWeight="600">
-              3 000 000 $
-            </text>
-            <Label x={353} y={258}>
-              Exemple de format, pas un prix réel
-            </Label>
-            <Label x={353} y={286} accent>
-              Comparer au montant source de l’artiste
-            </Label>
-          </Box>
-        </>
-      );
+      return <>
+        <Label x={40} y={106}>CATALOGUE DES PEINTURES</Label>
+        <Art x={40} y={124} width={186} height={246} />
+        <Panel x={252} y={124} width={508} height={246}>
+          <Text x={276} y={163} size={23} weight={600}>Main au Doigt Levé</Text>
+          <Text x={276} y={193} color={c.muted}>par Samantha Regan</Text>
+          <Text x={276} y={224} color={c.muted}>Œuvre originale · 4 × 30 po</Text>
+          <path d="M276 245h460" stroke={c.line} />
+          <Label x={276} y={276}>PRIX AFFICHÉ</Label>
+          <Text x={276} y={323} size={38} color={c.accent} weight={600}>7 200 025 $</Text>
+          <path d="M276 335h235" stroke={c.accent} strokeWidth={2} />
+        </Panel>
+      </>;
     case "pagination-peintures":
-      return (
-        <>
-          <Heading>Moins de raccourcis, plus de clarté.</Heading>
-          <Label x={118} y={168}>
-            PAGINATION DENSE
-          </Label>
-          <PageButtons x={118} y={183} dense />
-          <Arrow x={379} y={228} down />
-          <Label x={118} y={285}>
-            PROPOSITION COMPACTE
-          </Label>
-          <PageButtons x={260} y={268} />
-        </>
-      );
+      return <>
+        <Label x={40} y={110}>NOMBREUX RACCOURCIS</Label>
+        <Panel x={40} y={126} width={720} height={72}><Pagination x={72} y={145} dense /></Panel>
+        <Arrow x={398} y={216} down />
+        <Label x={40} y={277} accent>PROPOSITION COMPACTE</Label>
+        <Panel x={40} y={293} width={720} height={72} accent><Pagination x={211} y={313} /></Panel>
+      </>;
     case "livraison-incoherente":
-      return (
-        <>
-          <Heading>Une même offre, deux périmètres.</Heading>
-          <Box x={118} y={164}>
-            <Label x={138} y={193}>
-              FORMULATION A
-            </Label>
-            <text x="138" y="235" fill={c.cream} fontSize="32">
-              13 pays
-            </text>
-            <Label x={138} y={259}>
-              Canada · États-Unis · France…
-            </Label>
-          </Box>
-          <Box x={422} y={164}>
-            <Label x={442} y={193}>
-              FORMULATION B
-            </Label>
-            <text x="442" y="235" fill={c.cream} fontSize="30">
-              Monde entier
-            </text>
-            <Label x={442} y={259}>
-              Destinations à faire confirmer
-            </Label>
-          </Box>
-          <Label x={224} y={320} accent>
-            → Harmoniser avec la liste de référence validée
-          </Label>
-        </>
-      );
+      return <>
+        <Panel x={40} y={112} width={344} height={232}>
+          <Label x={62} y={144}>FAQ DU CATALOGUE</Label>
+          <Lines x={62} y={179} lines={["La livraison est-elle incluse ?", "Oui, vers 13 pays…"]} size={17} />
+          <Text x={62} y={257} size={38} weight={600}>13 pays</Text>
+          <Lines x={62} y={290} lines={["Canada · États-Unis · France", "Délai : 7 à 15 jours"]} size={14} color={c.muted} />
+        </Panel>
+        <Panel x={408} y={112} width={352} height={232} accent>
+          <Label x={430} y={144}>FAQ DE L’ACCUEIL</Label>
+          <Lines x={430} y={179} lines={["Nous livrons partout", "dans le monde."]} size={21} />
+          <Text x={430} y={257} size={34} color={c.accent}>Monde entier</Text>
+          <Text x={430} y={290} size={14} color={c.muted}>Délai : 7 à 15 jours ouvrables</Text>
+        </Panel>
+        <Text x={400} y={385} anchor="middle" color={c.muted}>Une même information à harmoniser.</Text>
+      </>;
     case "tarif-programme-numerique":
-      return (
-        <>
-          <Heading>Rendre l’engagement compréhensible.</Heading>
-          <Box x={118} y={164}>
-            <Label x={138} y={193}>
-              PRÉSENTATION A
-            </Label>
-            <text x="138" y="239" fill={c.cream} fontSize="34">
-              Gratuit
-            </text>
-            <Label x={138} y={260}>
-              Conditions à préciser
-            </Label>
-          </Box>
-          <Box x={422} y={164}>
-            <Label x={442} y={193}>
-              PRÉSENTATION B
-            </Label>
-            <text x="442" y="239" fill={c.cream} fontSize="34">
-              28 $ / mois
-            </text>
-            <Label x={442} y={260}>
-              Devise et offre à confirmer
-            </Label>
-          </Box>
-          <Label x={248} y={320} accent>
-            Une source tarifaire commune et à jour
-          </Label>
-        </>
-      );
+      return <>
+        <Label x={40} y={109}>SUR LA MÊME PAGE DU PROGRAMME NUMÉRIQUE</Label>
+        <Panel x={40} y={132} width={720} height={223}>
+          <Text x={68} y={173} size={24} weight={600}>Vos images en édition chez L’Original</Text>
+          <Text x={68} y={211} size={20}>Sans abonnement : ce parcours ne vit que</Text>
+          <Text x={68} y={240} size={20}>de la redevance par tirage.</Text>
+          <rect x={68} y={264} width={663} height={42} rx={21} fill={c.red} />
+          <Text x={400} y={291} size={17} anchor="middle" weight={600}>Postuler à notre curation →</Text>
+          <Text x={400} y={335} anchor="middle" size={20} color={c.accent}>28 $ / mois · Sans engagement</Text>
+        </Panel>
+      </>;
     case "faq-programmes-artistes":
-      return (
-        <>
-          <Heading>Préciser à quel programme s’applique la règle.</Heading>
-          <Box x={118} y={164}>
-            <Label x={138} y={191}>
-              PROGRAMME PHYSIQUE
-            </Label>
-            <Art x={141} y={206} width={58} height={58} />
-            <Label x={218} y={227}>
-              Œuvres acceptées
-            </Label>
-            <Label x={218} y={250}>
-              Règles propres
-            </Label>
-          </Box>
-          <Box x={422} y={164}>
-            <Label x={442} y={191}>
-              PROGRAMME NUMÉRIQUE
-            </Label>
-            <rect
-              x="445"
-              y="207"
-              width="64"
-              height="47"
-              rx="4"
-              fill={c.dark}
-              stroke={c.accent}
-            />
-            <path d="M477 255v10m-15 0h30" stroke={c.accent} />
-            <Label x={526} y={227}>
-              Œuvres acceptées
-            </Label>
-            <Label x={526} y={250}>
-              Règles propres
-            </Label>
-          </Box>
-          <Label x={222} y={320} accent>
-            Deux périmètres à distinguer explicitement
-          </Label>
-        </>
-      );
+      return <>
+        <Label x={40} y={109}>DEUX RÉPONSES SUR LE PROGRAMME NUMÉRIQUE</Label>
+        <Panel x={40} y={130} width={720} height={103}>
+          <Text x={62} y={161} size={18} weight={600}>Puis-je vendre mes prints ou œuvres digitales ?</Text>
+          <Text x={62} y={190} size={17}>Uniquement les œuvres originales physiques.</Text>
+          <Text x={62} y={216} size={17} color={c.accent}>Les impressions et œuvres digitales ne sont pas autorisées.</Text>
+        </Panel>
+        <Panel x={40} y={255} width={720} height={103} accent>
+          <Text x={62} y={286} size={18} weight={600}>Puis-je vendre mes tirages ou œuvres numériques ?</Text>
+          <Text x={62} y={315} size={17}>Ce parcours accueille les tirages et les œuvres numériques,</Text>
+          <Text x={62} y={341} size={17} color={c.accent}>et eux seuls.</Text>
+        </Panel>
+      </>;
     case "compteurs-artistes":
-      return (
-        <>
-          <Heading>Comparer seulement ce qui est comparable.</Heading>
-          {["850", "1 100", "13 464"].map((n, i) => (
-            <Box key={n} x={118 + i * 194} y={166} width={177} height={127}>
-              <Label x={137 + i * 194} y={195}>
-                ARTISTES
-              </Label>
-              <text x={137 + i * 194} y="238" fill={c.cream} fontSize="32">
-                {n}
-              </text>
-              <Label x={137 + i * 194} y={275}>
-                Périmètre ? Date ?
-              </Label>
-            </Box>
-          ))}
-          <Label x={241} y={326} accent>
-            Définir chaque indicateur avant de l’unifier
-          </Label>
-        </>
-      );
-    case "placeholder-courriel":
-      return (
-        <>
-          <Heading>Un exemple de format, pas une identité.</Heading>
-          <Label x={118} y={172}>
-            ADRESSE COURRIEL
-          </Label>
-          <Box x={118} y={187} width={562} height={48}>
-            <text x="136" y="217" fill={c.muted} fontSize="19">
-              artur@artur.com
-            </text>
-          </Box>
-          <Arrow x={392} y={245} down />
-          <Box x={118} y={287} width={562} height={48}>
-            <text x="136" y="317" fill={c.accent} fontSize="19">
-              nom@exemple.com
-            </text>
-          </Box>
-        </>
-      );
+      return <>
+        <Panel x={40} y={122} width={344} height={220}>
+          <Label x={62} y={155}>PAGE ARTISTES</Label>
+          <Text x={62} y={190} size={21} weight={600}>Nos artistes peintres</Text>
+          <Text x={62} y={249} size={49} weight={600}>850</Text>
+          <Text x={62} y={290} color={c.muted}>« Plus de 850 artistes vivants »</Text>
+        </Panel>
+        <Panel x={408} y={122} width={352} height={220} accent>
+          <Label x={430} y={155}>PROGRAMME NUMÉRIQUE</Label>
+          <Text x={430} y={190} size={21} weight={600}>Artistes représentés</Text>
+          <Text x={430} y={249} size={49} color={c.accent} weight={600}>13 724</Text>
+          <Text x={430} y={290} color={c.muted}>« 13724 artistes représentés »</Text>
+        </Panel>
+        <Text x={400} y={382} anchor="middle" color={c.muted}>Préciser ce que chaque compteur représente.</Text>
+      </>;
     case "titre-oeuvre-surcharge":
-      return (
-        <>
-          <Heading>Donner sa place à chaque information.</Heading>
-          <Box x={118} y={158} width={562} height={62}>
-            <text x="134" y="183" fill={c.cream} fontSize="17">
-              Another Year I Cannot Do Alone
-            </text>
-            <text x="134" y="204" fill={c.amber} fontSize="13">
-              + dimensions + technique + prix + devises
-            </text>
-          </Box>
-          <Arrow x={394} y={228} down />
-          {["Titre de l’œuvre", "Dimensions", "Technique", "Prix / devise"].map(
-            (label, i) => (
-              <Box
-                key={label}
-                x={118 + i * 144}
-                y={278}
-                width={130}
-                height={48}
-              >
-                <text
-                  x={183 + i * 144}
-                  y="307"
-                  textAnchor="middle"
-                  fill={c.accent}
-                  fontSize="13"
-                >
-                  {label}
-                </text>
-              </Box>
-            ),
-          )}
-        </>
-      );
+      return <>
+        <Label x={40} y={108}>TITRE AFFICHÉ DANS LA CAPTURE</Label>
+        <Panel x={40} y={124} width={720} height={115}>
+          <Lines x={62} y={155} size={21} lines={["“Another Year I Cannot Do Alone” 30x40 | Acrylic,", "Watercolor, Oil 12,800,000.00 USD (USD)"]} gap={30} />
+          <Text x={62} y={219} color={c.muted}>40 × 30 po</Text>
+          <Text x={736} y={219} size={20} anchor="end" color={c.accent}>15 360 080 $</Text>
+        </Panel>
+        <Arrow x={400} y={253} down />
+        <Panel x={40} y={298} width={720} height={83} accent>
+          <Text x={62} y={330} size={22} weight={600}>Another Year I Cannot Do Alone</Text>
+          <Text x={62} y={360} color={c.muted}>Dimensions · Techniques · Prix : des champs séparés</Text>
+        </Panel>
+      </>;
     case "villes-normalisation":
-      return (
-        <>
-          <Heading>Une ville, des libellés maîtrisés.</Heading>
-          <Box x={118} y={166} width={230} height={134}>
-            <text x="137" y="201" fill={c.cream} fontSize="22">
-              Montreal / Montréal
-            </text>
-            <text x="137" y="235" fill={c.muted} fontSize="20">
-              levis / Lévis
-            </text>
-            <Label x={137} y={276}>
-              Variantes de saisie ou de langue
-            </Label>
-          </Box>
-          <Arrow x={368} y={230} />
-          <Box x={424} y={166} width={256} height={134}>
-            <Label x={443} y={195}>
-              IDENTIFIANT COMMUN
-            </Label>
-            <text x="443" y="232" fill={c.accent} fontSize="23">
-              Ville · langue · libellé
-            </text>
-            <Label x={443} y={276}>
-              Sans supprimer les traductions
-            </Label>
-          </Box>
-        </>
-      );
+      return <>
+        {[
+          { name: "Abie", city: "levis, Canada", note: "Majuscule et accent manquants" },
+          { name: "A.Marie Langlois", city: "Lévis, Canada", note: "Forme cohérente" },
+          { name: "Adi Zur", city: "Maple. ont., Canada", note: "Ponctuation et province à uniformiser" },
+        ].map((item, i) => <Panel key={item.name} x={40} y={112 + i * 88} width={720} height={73}>
+          <Text x={60} y={141 + i * 88} size={19} weight={600}>{item.name}</Text>
+          <Text x={60} y={168 + i * 88} size={17} color={c.accent}>{item.city}</Text>
+          <Text x={364} y={155 + i * 88} size={16} color={c.muted}>{item.note}</Text>
+        </Panel>)}
+      </>;
     case "validation-location-galerie":
-      return (
-        <>
-          <Heading>Accompagner la correction des saisies.</Heading>
+      return <>
+        <Label x={40} y={108}>DEMANDE DE RÉSERVATION</Label>
+        <Panel x={40} y={124} width={720} height={256}>
           {[
-            {
-              label: "Courriel",
-              value: "adresse@",
-              error: "Format à vérifier",
-            },
-            {
-              label: "Dates de location",
-              value: "Fin avant le début",
-              error: "Vérifier l’ordre des dates",
-            },
-            {
-              label: "Nombre d’invités",
-              value: "Capacité ?",
-              error: "Règle métier à confirmer",
-            },
-          ].map((field, i) => (
-            <g key={field.label}>
-              <Label x={119} y={171 + i * 64}>
-                {field.label}
-              </Label>
-              <Box x={118} y={181 + i * 64} width={271} height={33}>
-                <text x="131" y={203 + i * 64} fill={c.cream} fontSize="13">
-                  {field.value}
-                </text>
-              </Box>
-              <text x="418" y={203 + i * 64} fill={c.amber} fontSize="13">
-                ! {field.error}
-              </text>
-            </g>
-          ))}
-        </>
-      );
+            ["Nombre d’invités", "−1", "Un nombre négatif est accepté"],
+            ["Dates", "09/11 → 06/11/2026", "La fin précède le début"],
+            ["Courriel", "allo", "Le format n’est pas signalé"],
+          ].map(([label, value, note], i) => <g key={label}>
+            <Label x={62} y={153 + i * 74}>{label.toUpperCase()}</Label>
+            <rect x={62} y={163 + i * 74} width={283} height={33} rx={5} fill={c.dark} stroke={c.line} />
+            <Text x={74} y={186 + i * 74} size={18}>{value}</Text>
+            <Text x={369} y={186 + i * 74} size={17} color={c.accent}>{note}</Text>
+          </g>)}
+        </Panel>
+      </>;
     case "espacement-faq-bureau":
-      return (
-        <>
-          <Heading>Laisser respirer les questions.</Heading>
-          <Label x={118} y={168}>
-            ESPACEMENT RÉDUIT
-          </Label>
-          <rect x="118" y="182" width="562" height="33" rx="4" fill="#283949" />
-          <text x="120" y="203" fill={c.cream} fontSize="16">
-            Comment décorer un bureau avec une œuvre ?
-          </text>
-          <text x="660" y="203" fill={c.cream} fontSize="20">
-            +
-          </text>
-          <Arrow x={393} y={230} down />
-          <Label x={118} y={282}>
-            PROPOSITION AVEC MARGES INTERNES
-          </Label>
-          <rect x="118" y="294" width="562" height="49" rx="5" fill="#283949" />
-          <text x="138" y="325" fill={c.cream} fontSize="16">
-            Comment décorer un bureau avec une œuvre ?
-          </text>
-          <text x="646" y="325" fill={c.accent} fontSize="20">
-            +
-          </text>
-        </>
-      );
-    case "contenu-fiscal-bureau":
-      return (
-        <>
-          <Heading>Une formulation à contextualiser.</Heading>
-          <Box x={118} y={166} width={562} height={90}>
-            <text x="141" y="205" fill={c.cream} fontSize="25">
-              « Actif financier amortissable »
-            </text>
-            <Label x={141} y={235}>
-              Passage éditorial signalé dans le relevé utilisateur
-            </Label>
-          </Box>
-          <Label x={123} y={291} accent>
-            01 Juridiction
-          </Label>
-          <Label x={304} y={291} accent>
-            02 Conditions
-          </Label>
-          <Label x={487} y={291} accent>
-            03 Relecture fiscale
-          </Label>
-          <Label x={160} y={329}>
-            Validation par un spécialiste avant toute promesse générale
-          </Label>
-        </>
-      );
+      return <>
+        <Label x={40} y={108}>TEXTE COLLÉ AUX BORDS</Label>
+        <rect x={40} y={128} width={720} height={76} rx={38} fill="#252a31" />
+        <Lines x={41} y={155} size={18} lines={["Est-ce que l’œuvre risque de distraire mes clients ou mes collaborateurs", "pendant les réunions ?"]} gap={26} />
+        <Text x={744} y={174} size={24}>›</Text>
+        <path d="M42 133v64m718-64v64" stroke={c.accent} strokeWidth={2} />
+        <Arrow x={400} y={222} down />
+        <Label x={40} y={283} accent>PROPOSITION AVEC MARGES INTERNES</Label>
+        <rect x={40} y={302} width={720} height={83} rx={38} fill="#252a31" stroke={c.accent} />
+        <Lines x={66} y={335} size={18} lines={["Est-ce que l’œuvre risque de distraire mes clients", "ou mes collaborateurs pendant les réunions ?"]} gap={26} />
+        <Text x={714} y={351} size={24} color={c.accent}>›</Text>
+      </>;
     case "grille-peintures-anglaise":
-      return (
-        <>
-          <Heading>Des cadres cohérents, des œuvres entières.</Heading>
-          {[0, 1, 2].map((i) => (
-            <Box key={i} x={118 + i * 194} y={165} width={178} height={164}>
-              <Art
-                x={i === 0 ? 167 : i === 1 ? 323 : 526}
-                y={i === 1 ? 205 : 181}
-                width={i === 0 ? 80 : i === 1 ? 144 : 112}
-                height={i === 0 ? 119 : i === 1 ? 70 : 112}
-              />
-              <path d={`M${133 + i * 194} 315h145`} stroke={c.line} />
-            </Box>
-          ))}
-          <Label x={221} y={349} accent>
-            Contenants réguliers · images centrées · aucun recadrage
-          </Label>
-        </>
-      );
+      return <>
+        <Label x={40} y={107}>AVANT : HAUTEURS IRRÉGULIÈRES</Label>
+        <Label x={425} y={107} accent>APRÈS : CONTENANTS ALIGNÉS</Label>
+        {[0, 1, 2].map(i => <g key={i}>
+          <rect x={40 + i * 105} y={127} width={92} height={[144, 228, 179][i]} fill="#303030" stroke={c.line} />
+          <rect x={54 + i * 105} y={144} width={64} height={[95, 178, 127][i]} fill="#74615b" />
+          <path d={`M${48 + i * 105} ${[287, 371, 322][i]}h75`} stroke={c.line} strokeWidth={4} />
+          <rect x={425 + i * 105} y={127} width={92} height={228} fill="#303030" stroke={c.accent} />
+          <rect x={439 + i * 105} y={144 + [42, 0, 25][i]} width={64} height={[95, 178, 127][i]} fill="#74615b" />
+          <path d={`M${433 + i * 105} 371h75`} stroke={c.line} strokeWidth={4} />
+        </g>)}
+        <Arrow x={372} y={238} />
+        <Text x={400} y={414} size={15} anchor="middle" color={c.muted}>Même format d’œuvre avant / après : aucun recadrage.</Text>
+      </>;
     case "oeuvres-adoptees":
-      return (
-        <>
-          <Heading>Identifier ce qui est encore disponible.</Heading>
-          {["Disponible", "Adoptée", "Disponible"].map((state, i) => (
-            <Box key={i} x={118 + i * 194} y={165} width={178} height={170}>
-              <Art
-                x={134 + i * 194}
-                y={180}
-                width={146}
-                height={96}
-                faded={i === 1}
-              />
-              <rect
-                x={132 + i * 194}
-                y="290"
-                width="148"
-                height="27"
-                rx="4"
-                fill={i === 1 ? c.dark : c.accent}
-              />
-              <text
-                x={206 + i * 194}
-                y="308"
-                textAnchor="middle"
-                fill={i === 1 ? c.muted : c.dark}
-                fontSize="13"
-              >
-                {state}
-              </text>
-            </Box>
-          ))}
-        </>
-      );
+      return <>
+        <Panel x={40} y={111} width={281} height={280}>
+          <Art x={61} y={132} width={239} height={174} />
+          <rect x={61} y={132} width={85} height={25} fill={c.dark} />
+          <Text x={71} y={150} size={12} weight={600}>ADOPTÉ</Text>
+          <Text x={61} y={337} size={18} weight={600}>Lucie</Text>
+          <Text x={61} y={365} size={15} color={c.muted}>par Véro Saumure · 20 × 20 po</Text>
+        </Panel>
+        <Label x={355} y={147}>DANS LE CATALOGUE D’ACHAT</Label>
+        <Lines x={355} y={185} lines={["Œuvres vendues et disponibles", "apparaissent ensemble.", "Le badge en haut de l’image", "s’éloigne des informations", "quand la carte est très haute."]} size={18} gap={29} />
+        <rect x={355} y={341} width={405} height={45} rx={7} fill={c.dark} stroke={c.accent} />
+        <Text x={374} y={369} size={17} color={c.accent}>Proposition : filtre « Disponibles »</Text>
+      </>;
     case "liste-artistes":
-      return (
-        <>
-          <Heading>Une progression lisible dans les artistes.</Heading>
-          {[0, 1, 2].map((row) => (
-            <g key={row}>
-              {[0, 1, 2, 3, 4, 5, 6, 7].map((col) => (
-                <g key={col}>
-                  <circle
-                    cx={139 + col * 74}
-                    cy={172 + row * 42}
-                    r="12"
-                    fill={c.panel}
-                    stroke={c.line}
-                  />
-                  <path
-                    d={`M${123 + col * 74} ${192 + row * 42}h32`}
-                    stroke={c.line}
-                  />
-                </g>
-              ))}
-            </g>
-          ))}
-          <path d="M118 290H680" stroke={c.line} strokeDasharray="4 5" />
-          <Label x={118} y={321}>
-            PROPOSITION
-          </Label>
-          <PageButtons x={280} y={302} />
-        </>
-      );
+      return <>
+        <Label x={40} y={107}>UNE LONGUE LISTE À FAIRE DÉFILER</Label>
+        {[0, 1, 2].map(row => <g key={row}>{[0, 1, 2, 3, 4, 5, 6, 7].map(col => <g key={col}>
+          <rect x={40 + col * 91} y={123 + row * 65} width={78} height={43} rx={4} fill="#303030" />
+          <path d={`M${45 + col * 91} ${177 + row * 65}h67`} stroke={c.line} strokeWidth={3} />
+        </g>)}</g>)}
+        <path d="M40 322h720" stroke={c.line} strokeDasharray="5 5" />
+        <Label x={40} y={363} accent>PROPOSITION</Label>
+        <Pagination x={211} y={342} />
+        <Text x={400} y={412} size={15} color={c.muted} anchor="middle">Parcourir les profils par pages, puis retrouver sa position.</Text>
+      </>;
     case "profil-incomplet":
-      return (
-        <>
-          <Heading>Prévoir les informations manquantes.</Heading>
-          <circle cx="183" cy="204" r="43" fill={c.panel} stroke={c.line} />
-          <circle cx="183" cy="192" r="13" fill="#8a6b55" />
-          <path d="M160 227c0-25 46-25 46 0" fill="#8a6b55" />
-          <Label x={136} y={275}>
-            Profil artiste
-          </Label>
-          <Box x={281} y={165} width={399} height={43} dashed>
-            <Label x={300} y={192}>
-              Biographie non renseignée
-            </Label>
-          </Box>
-          <Box x={281} y={222} width={399} height={43} dashed>
-            <Label x={300} y={249}>
-              Localisation à compléter
-            </Label>
-          </Box>
-          <Box x={281} y={279} width={399} height={43} dashed>
-            <Label x={300} y={306}>
-              Année absente → masquer la rubrique
-            </Label>
-          </Box>
-        </>
-      );
+      return <>
+        <Panel x={40} y={111} width={720} height={278}>
+          <Art x={60} y={133} width={139} height={173} />
+          <Text x={222} y={160} size={25} weight={600}>Zen-ruffinen Véronique</Text>
+          <rect x={222} y={184} width={299} height={176} rx={6} fill="none" stroke={c.accent} strokeDasharray="6 5" />
+          <Lines x={242} y={253} lines={["Biographie et ville", "non renseignées", "→ grand espace vide"]} size={18} gap={27} color={c.muted} />
+          <Panel x={545} y={133} width={194} height={136}>
+            <Label x={561} y={160}>SUR MESURE</Label>
+            <Text x={561} y={191} size={18}>À partir de 1 825 $</Text>
+            <rect x={561} y={213} width={160} height={31} rx={15} fill={c.red} />
+            <Text x={641} y={234} size={13} anchor="middle">Suivre l’artiste</Text>
+          </Panel>
+          <Text x={60} y={345} size={15} color={c.muted}>1 œuvre disponible</Text>
+        </Panel>
+      </>;
     case "carte-artiste-inactive":
-      return (
-        <>
-          <Heading>Rendre le geste et son résultat explicites.</Heading>
-          <Box x={144} y={160} width={200} height={172}>
-            <circle cx="244" cy="205" r="26" fill="#8a6b55" />
-            <text
-              x="244"
-              y="258"
-              textAnchor="middle"
-              fill={c.cream}
-              fontSize="18"
-            >
-              Carte artiste
-            </text>
-            <text
-              x="244"
-              y="294"
-              textAnchor="middle"
-              fill={c.accent}
-              fontSize="13"
-            >
-              Cliquer pour retourner ↻
-            </text>
-          </Box>
-          <Arrow x={383} y={240} />
-          <Box x={457} y={160} width={200} height={172} dashed>
-            <text
-              x="557"
-              y="211"
-              textAnchor="middle"
-              fill={c.cream}
-              fontSize="20"
-            >
-              Verso attendu
-            </text>
-            <path
-              d="M483 238h149m-149 16h127m-127 16h138"
-              stroke={c.line}
-              strokeWidth="5"
-              strokeLinecap="round"
-            />
-            <text
-              x="557"
-              y="311"
-              textAnchor="middle"
-              fill={c.muted}
-              fontSize="12"
-            >
-              Interaction à contrôler
-            </text>
-          </Box>
-        </>
-      );
+      return <>
+        <Panel x={63} y={110} width={218} height={247}>
+          <path d="M75 130l192 172m-192-30 154-151m-154 65 192 159" stroke="#383333" strokeWidth={12} />
+          <Text x={172} y={207} size={25} anchor="middle" weight={600}>Créez-la avec</Text>
+          <Text x={172} y={241} size={25} anchor="middle" weight={600}>Fish vik.</Text>
+          <Label x={118} y={329}>L’ORIGINAL</Label>
+        </Panel>
+        <Text x={172} y={390} size={17} color={c.accent} anchor="middle">↻ Retournez la carte</Text>
+        <Arrow x={312} y={236} />
+        <Panel x={374} y={134} width={364} height={198} accent dashed>
+          <Text x={398} y={175} size={22} weight={600}>Le clic ne change rien.</Text>
+          <Lines x={398} y={215} lines={["Le verso annoncé", "reste inaccessible."]} size={22} gap={34} color={c.muted} />
+          <Text x={398} y={304} size={15} color={c.accent}>Rétablir l’interaction.</Text>
+        </Panel>
+      </>;
     case "pickart-footer":
-      return (
-        <>
-          <Heading>Conserver les repères jusqu’en bas de page.</Heading>
-          <Label x={118} y={165}>
-            PICKART · ARTISTES FAVORIS
-          </Label>
-          {[0, 1, 2].map((i) => (
-            <Box key={i} x={118 + i * 194} y={182} width={178} height={79}>
-              <circle cx={147 + i * 194} cy="210" r="14" fill="#8a6b55" />
-              <path
-                d={`M${172 + i * 194} 206h98m-98 13h73`}
-                stroke={c.line}
-                strokeWidth="4"
-              />
-            </Box>
-          ))}
-          <Box x={118} y={283} width={562} height={54} dashed>
-            <text
-              x="400"
-              y="315"
-              textAnchor="middle"
-              fill={c.accent}
-              fontSize="15"
-            >
-              Zone du pied de page à retrouver dans le rendu
-            </text>
-          </Box>
-        </>
-      );
+      return <>
+        <Label x={40} y={107}>ARTISTES FAVORIS · PICKART</Label>
+        <Label x={425} y={107} accent>PIED DE PAGE HABITUEL</Label>
+        <Panel x={40} y={123} width={328} height={261}>
+          <rect x={57} y={140} width={294} height={109} fill="#333333" />
+          <Text x={75} y={181} size={22} weight={600}>Votre sélection</Text>
+          <Text x={75} y={213} size={15} color={c.muted}>Après les swipes</Text>
+          <path d="M57 267h294" stroke={c.line} />
+          <Text x={75} y={291} size={13}>Sauvegarder · Partager</Text>
+          <rect x={57} y={310} width={294} height={56} rx={5} fill="none" stroke={c.accent} strokeDasharray="6 5" />
+          <Text x={204} y={344} anchor="middle" size={17} color={c.accent}>Pied de page absent</Text>
+        </Panel>
+        <Panel x={425} y={123} width={335} height={261}>
+          <rect x={442} y={140} width={301} height={109} fill="#333333" />
+          <Text x={461} y={202} size={22} weight={600}>Contenu du site</Text>
+          <Footer x={442} y={271} width={301} />
+        </Panel>
+        <Arrow x={383} y={251} />
+      </>;
     case "echelle-tableau":
-      return (
-        <>
-          <Heading>Vérifier dimensions, unités et mise en situation.</Heading>
-          <Box x={118} y={160} width={337} height={169}>
-            <path d="M132 289H441" stroke={c.line} />
-            <rect
-              x="166"
-              y="263"
-              width="238"
-              height="37"
-              rx="7"
-              fill="#5d4133"
-            />
-            <rect
-              x="181"
-              y="246"
-              width="207"
-              height="35"
-              rx="8"
-              fill="#826044"
-            />
-            <Art x={242} y={182} width={56} height={51} />
-            <path d="M242 173h56m-56-4v8m56-8v8" stroke={c.accent} />
-            <Label x={221} y={317}>
-              Décor schématique
-            </Label>
-          </Box>
-          <Label x={482} y={187}>
-            LARGEUR SIGNALÉE
-          </Label>
-          <text x="482" y="225" fill={c.cream} fontSize="30">
-            ≈ 10 cm
-          </text>
-          <Label x={482} y={256}>
-            Dimension à confirmer
-          </Label>
-          <Label x={482} y={282} accent>
-            cm / pouces · ratio · échelle
-          </Label>
-          <Label x={482} y={309}>
-            Ne pas agrandir arbitrairement
-          </Label>
-        </>
-      );
+      return <>
+        <Label x={40} y={108}>PRÉVISUALISATION</Label>
+        <Label x={425} y={108}>« VOIR CHEZ MOI » · TAILLE RÉELLE</Label>
+        <Panel x={40} y={124} width={328} height={252}>
+          <rect x={57} y={140} width={294} height={176} fill="#373433" />
+          <Art x={162} y={154} width={105} height={144} />
+          <path d="M58 316h292" stroke={c.line} strokeWidth={3} />
+          <Text x={65} y={348} size={15} color={c.muted}>L’œuvre paraît très large dans le décor.</Text>
+        </Panel>
+        <Panel x={425} y={124} width={335} height={252}>
+          <rect x={442} y={140} width={301} height={176} fill="#373433" />
+          <Art x={575} y={170} width={7} height={53} />
+          <path d="M566 165h25m-25-5v10m25-10v10" stroke={c.accent} />
+          <Text x={578} y={157} size={13} anchor="middle" color={c.accent}>10 cm</Text>
+          <Text x={596} y={201} size={13} color={c.muted}>76 cm</Text>
+          <rect x={476} y={264} width={219} height={40} rx={10} fill="#68615c" />
+          <rect x={487} y={252} width={197} height={31} rx={9} fill="#807973" />
+          <Text x={592} y={348} size={15} anchor="middle" color={c.muted}>À côté d’un canapé de 2,10 m.</Text>
+        </Panel>
+        <Text x={400} y={413} anchor="middle" size={15} color={c.accent}>Comparer les deux rendus aux dimensions annoncées : 10 × 76 cm.</Text>
+      </>;
     case "photos-notre-histoire":
-      return (
-        <>
-          <Heading>Adapter la source à la taille d’affichage.</Heading>
-          <Box x={118} y={163} width={260} height={166}>
-            <g filter={`url(#${blurId})`}>
-              <Art x={132} y={177} width={232} height={113} />
-            </g>
-            <Label x={136} y={313}>
-              Source insuffisante · schéma flouté
-            </Label>
-          </Box>
-          <Box x={422} y={163} width={260} height={166}>
-            <Art x={436} y={177} width={232} height={113} />
-            <Label x={440} y={313} accent>
-              Source adaptée · proportions gardées
-            </Label>
-          </Box>
-        </>
-      );
+      return <>
+        <Label x={40} y={108}>AVANT : PHOTOS PEU DÉFINIES</Label>
+        <Label x={425} y={108} accent>PROPOSITION : SOURCES ADAPTÉES</Label>
+        {[0, 1, 2].map(i => <g key={i}>
+          <Panel x={40} y={124 + i * 88} width={328} height={80}>
+            <Avatar x={44} y={127 + i * 88} pixelated />
+            <path d={`M120 ${145 + i * 88}h170m-170 17h219m-219 17h201`} stroke={c.line} strokeWidth={4} />
+          </Panel>
+          <Panel x={425} y={124 + i * 88} width={335} height={80}>
+            <Avatar x={429} y={127 + i * 88} />
+            <path d={`M505 ${145 + i * 88}h170m-170 17h219m-219 17h201`} stroke={c.line} strokeWidth={4} />
+          </Panel>
+        </g>)}
+        <Arrow x={383} y={247} />
+      </>;
     default:
-      return (
-        <>
-          <Heading>Documenter pour mieux comprendre.</Heading>
-          <Box x={118} y={166} width={562} height={150}>
-            <Label x={143} y={203}>
-              CONTEXTE → CONSTAT → IMPACT
-            </Label>
-            <path
-              d="M143 228h478m-478 20h420m-420 20h449"
-              stroke={c.line}
-              strokeWidth="6"
-              strokeLinecap="round"
-            />
-            <Label x={143} y={298} accent>
-              Schéma pédagogique du sujet signalé
-            </Label>
-          </Box>
-        </>
-      );
+      return <Panel x={40} y={124} width={720} height={240}><Text x={65} y={180} size={24}>Comprendre le problème et proposer une correction.</Text></Panel>;
   }
 }
 
-export function IssueIllustration({
-  kind,
-  ticket,
-}: {
-  kind: string;
-  ticket?: string;
-}) {
-  const title =
-    titles[ticket ?? ""] ??
-    "Schéma pédagogique d’un constat du relevé utilisateur";
-  const blurId = `issue-schematic-blur-${ticket ?? kind}`;
-  return (
-    <svg
-      viewBox="0 0 800 440"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      aria-label={title}
-      style={{ display: "block", width: "100%", height: "auto" }}
-    >
-      <title>{title}</title>
-      <defs>
-        <filter id={blurId}>
-          <feGaussianBlur stdDeviation="4" />
-        </filter>
-      </defs>
-      <rect width="800" height="440" rx="16" fill={c.bg} />
-      <path d="M25 25H775V415H25Z" fill="none" stroke="#44362e" />
-      <g fontFamily="Arial, sans-serif">
-        <rect
-          x="84"
-          y="51"
-          width="632"
-          height="315"
-          rx="12"
-          fill={c.dark}
-          stroke={c.line}
-        />
-        <path d="M84 89H716" stroke={c.line} />
-        {[107, 122, 137].map((x) => (
-          <circle key={x} cx={x} cy="70" r="3.5" fill="#8e6e57" />
-        ))}
-        <text
-          x="404"
-          y="74"
-          textAnchor="middle"
-          fill={c.muted}
-          fontSize="10"
-          letterSpacing="1.5"
-        >
-          CONCEPT VISUEL DU CONSTAT
-        </text>
-        <Diagram ticket={ticket} blurId={blurId} />
-        <text
-          x="400"
-          y="400"
-          textAnchor="middle"
-          fill={c.muted}
-          fontSize="10"
-          letterSpacing="1.15"
-        >
-          SCHÉMA EXPLICATIF · PAS UNE CAPTURE DU SITE
-        </text>
-      </g>
-    </svg>
-  );
+const headings: Record<string, string> = {
+  "prix-incoherents": "Un montant qui surprend.",
+  "pagination-peintures": "Alléger les raccourcis de pages.",
+  "livraison-incoherente": "Deux réponses sur la livraison.",
+  "tarif-programme-numerique": "Sans abonnement… ou 28 $ par mois ?",
+  "faq-programmes-artistes": "Des critères d’admission contradictoires.",
+  "compteurs-artistes": "Des chiffres sans périmètre commun.",
+  "titre-oeuvre-surcharge": "Un titre qui contient trop d’informations.",
+  "villes-normalisation": "Harmoniser les localisations.",
+  "validation-location-galerie": "Des saisies invalides sans message.",
+  "espacement-faq-bureau": "Donner de l’espace aux questions.",
+  "grille-peintures-anglaise": "Aligner les cadres, préserver les formats.",
+  "oeuvres-adoptees": "Mieux distinguer les œuvres adoptées.",
+  "liste-artistes": "Faciliter le parcours des artistes.",
+  "profil-incomplet": "Un grand blanc dans le profil.",
+  "carte-artiste-inactive": "Une action sans résultat.",
+  "pickart-footer": "Retrouver les liens du pied de page.",
+  "echelle-tableau": "Une échelle différente selon le rendu.",
+  "photos-notre-histoire": "Des portraits qui manquent de netteté.",
+};
+
+export function IssueIllustration({ kind, ticket }: { kind: string; ticket?: string }) {
+  const title = titles[ticket ?? ""] ?? "Illustration du constat";
+  return <svg
+    viewBox="0 0 800 440"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label={title}
+    data-kind={kind}
+    style={{ display: "block", width: "100%", height: "auto" }}
+  >
+    <title>{title}</title>
+    <rect width={800} height={440} rx={12} fill={c.bg} />
+    <g fontFamily="Arial, sans-serif">
+      <Text x={40} y={55} size={26} weight={600}>{headings[ticket ?? ""] ?? "Observer pour améliorer."}</Text>
+      <path d="M40 76h720" stroke={c.line} />
+      <Diagram ticket={ticket} />
+    </g>
+  </svg>;
 }

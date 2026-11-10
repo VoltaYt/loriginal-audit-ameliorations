@@ -31,7 +31,7 @@ export function AnomaliesExplorer() {
       (item) =>
         (category === "Toutes" || item.category === category) &&
         normalized(
-          `${item.number} #${Number(item.number)} ${item.title} ${item.summary} ${item.category} ${item.description} ${item.page}`,
+          `${item.number} ${Number(item.number)} ${item.title} ${item.summary} ${item.category} ${item.description} ${item.page}`,
         ).includes(normalized(query.trim())),
     )
     .sort((a, b) => Number(a.number) - Number(b.number));
@@ -115,12 +115,12 @@ export function AnomaliesExplorer() {
               className="anomaly-card"
               onClick={() => open(item.id)}
               aria-haspopup="dialog"
-              aria-label={`Voir le détail #${Number(item.number)} : ${item.title}`}
+              aria-label={`Voir le détail ${Number(item.number)} : ${item.title}`}
             >
               <div className="anomaly-visual">
                 <IssueIllustration kind={item.illustration} ticket={item.id} />
                 <span className="visual-number">
-                  #{Number(item.number).toString().padStart(2, "0")}
+                  {Number(item.number).toString().padStart(2, "0")}
                 </span>
                 <span className="visual-expand">
                   <ArrowUpRight size={19} />

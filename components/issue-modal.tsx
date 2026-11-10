@@ -62,7 +62,7 @@ export function IssueModal({
       }}
     >
       <div className="modal-top">
-        <span className="micro-label">LE CONSTAT / #{Number(item.number)}</span>
+        <span className="micro-label">LE CONSTAT / {index + 1}</span>
         <button
           className="icon-button"
           onClick={onClose}
