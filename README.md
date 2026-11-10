@@ -27,7 +27,7 @@ npm run start
 | Route            | Contenu                                                                      |
 | ---------------- | ---------------------------------------------------------------------------- |
 | `/`              | Présentation, motivations, démarche et aperçu des constats                   |
-| `/anomalies`     | 18 constats, recherche, catégories et modales de détails          |
+| `/anomalies`     | 17 constats, recherche, catégories et modales de détails          |
 | `/ameliorations` | Six axes d’amélioration, liés aux constats concernés, avec pistes dépliables |
 | `/technologies`  | Codex, Next.js, React, TypeScript et CSS                       |
 
@@ -35,7 +35,7 @@ Les fiches sont partageables par URL : `/anomalies?anomalie=prix-incoherents`. U
 
 ## Contenu de l’audit et captures
 
-Toutes les données sont centralisées dans **`lib/audit-data.ts`**. Les 18 constats sont numérotés de 1 à 18, sans saut. Les identifiants des fiches restent stables pour conserver les liens partagés.
+Toutes les données sont centralisées dans **`lib/audit-data.ts`**. Les 17 constats sont numérotés de 1 à 17, sans saut. L’absence de pagination des peintures et des artistes est regroupée dans un même constat. Les liens partagés vers l’ancien constat des artistes ouvrent cette fiche commune.
 
 Les visuels explicatifs s’inspirent des captures fournies pour montrer les problèmes et les pistes de correction. Les liens des pages concernées sont renseignés dans chaque fiche. Pour ajouter des captures à la galerie :
 
@@ -63,7 +63,7 @@ npm run build
 npm run test:e2e
 ```
 
-Playwright vérifie les parcours sur ordinateur et mobile : navigation, 18 constats et numérotation, recherche, combinaisons de filtres, modales, liens directs, focus clavier, détails des améliorations et absence de débordement horizontal.
+Playwright vérifie les parcours sur ordinateur et mobile : navigation, 17 constats et numérotation, recherche, combinaisons de filtres, modales, liens directs, focus clavier, détails des améliorations et absence de débordement horizontal.
 
 Le navigateur Chromium système est utilisé s’il existe dans `/usr/bin/chromium`. Sinon, l’installer avec `npx playwright install chromium`, ou définir `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` vers un navigateur compatible. Les tests démarrent un serveur de développement si aucun serveur n’utilise déjà le port 3000; pour vérifier la production, lancer préalablement `npm run build` puis `npm run start` dans un autre terminal.
 

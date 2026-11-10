@@ -48,15 +48,16 @@ test("les quatre pages sont accessibles depuis la navigation principale", async 
   expect(errors).toEqual([]);
 });
 
-test("les dix-huit constats ont une numérotation continue sans dièse", async ({
+test("les dix-sept constats ont une numérotation continue sans dièse", async ({
   page,
 }) => {
-  const expectedNumbers = Array.from({ length: 18 }, (_, index) => index + 1);
+  const expectedNumbers = Array.from({ length: 17 }, (_, index) => index + 1);
   expect(anomalies.map((item) => item.id)).not.toContain("placeholder-courriel");
   expect(anomalies.map((item) => item.id)).not.toContain("contenu-fiscal-bureau");
+  expect(anomalies.map((item) => item.id)).not.toContain("liste-artistes");
   expect(anomalies.map((item) => Number(item.number))).toEqual(expectedNumbers);
   await page.goto("/anomalies");
-  await expect(page.locator(".anomaly-card")).toHaveCount(18);
+  await expect(page.locator(".anomaly-card")).toHaveCount(17);
   const numbers = await page.locator(".visual-number").allTextContents();
   expect(numbers.map(Number)).toEqual(expectedNumbers);
   expect(numbers.every((number) => /^\d{2}$/.test(number.trim()))).toBe(true);
@@ -80,7 +81,7 @@ test("la recherche, son état vide et la réinitialisation fonctionnent", async 
     .getByRole("button", { name: /Réinitialiser les filtres/i })
     .click();
   await expect(search).toHaveValue("");
-  await expect(page.locator(".anomaly-card")).toHaveCount(18);
+  await expect(page.locator(".anomaly-card")).toHaveCount(17);
 });
 
 test("catégorie et recherche se combinent sans perdre le filtre", async ({
@@ -192,6 +193,31 @@ test("les captures corrigent les compteurs et complètent les pages sources", as
   }
 });
 
+test("le constat de pagination regroupe peintures et artistes sans décrire une pagination existante", async ({
+  page,
+}) => {
+  await page.goto("/anomalies?anomalie=pagination-peintures");
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole("heading", { level: 2 })).toContainText(/peintures et artistes/i);
+  await expect(dialog.locator(".modal-description")).toContainText(/peintures se chargent automatiquement/);
+  await expect(dialog.locator(".modal-description")).toContainText(/approche du pied de page/);
+  await expect(dialog).not.toContainText(/pagination existe|nombreux raccourcis|pagination.*trop chargée/i);
+  expect(
+    await dialog.locator("a.issue-source").evaluateAll((links) =>
+      links.map((link) => link.getAttribute("href")),
+    ),
+  ).toEqual([
+    "https://www.loriginal.org/fr/peintures",
+    "https://www.loriginal.org/fr/artistes",
+  ]);
+
+  await page.goto("/anomalies?anomalie=liste-artistes");
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole("heading", { level: 2 })).toContainText(/peintures et artistes/i);
+  await expect(dialog.locator(".modal-top")).toContainText("LE CONSTAT / 2");
+});
+
 test("fermer une modale restitue le focus à la fiche activée", async ({
   page,
 }) => {
@@ -223,7 +249,7 @@ test("un lien direct ouvre le bon constat et un identifiant inconnu reste récup
   await expect(page.getByText("Cette fiche n’existe pas.")).toBeVisible();
   await page.getByRole("button", { name: /Revenir à la liste/i }).click();
   await expect(page).toHaveURL(/\/anomalies$/);
-  await expect(page.locator(".anomaly-card")).toHaveCount(18);
+  await expect(page.locator(".anomaly-card")).toHaveCount(17);
 });
 
 test("les améliorations se filtrent et leurs détails sont dépliables", async ({

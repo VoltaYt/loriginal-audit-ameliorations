@@ -13,7 +13,8 @@ export function AnomaliesExplorer() {
   const openerRef = useRef<HTMLElement | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const selectedId = searchParams.get("anomalie");
+  const requestedId = searchParams.get("anomalie");
+  const selectedId = requestedId === "liste-artistes" ? "pagination-peintures" : requestedId;
   const selected = anomalies.find((item) => item.id === selectedId);
   useEffect(() => {
     if (!selected && openerRef.current) {

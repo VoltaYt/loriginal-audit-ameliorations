@@ -9,7 +9,7 @@ export default function AnomaliesPage() {
   return (
     <div className="page anomalies-page">
       <PageHeading
-        eyebrow="02 / OBSERVER & COMPRENDRE"
+        eyebrow="OBSERVER & COMPRENDRE"
         title="Les détails qui"
         accent="font la différence."
         description="Les problèmes repérés sur loriginal.org et les pistes pour les corriger."

@@ -48,21 +48,25 @@ export const anomalies: Anomaly[] = [
   {
     id: "pagination-peintures",
     number: "02",
-    title: "Une pagination de peintures trop chargée",
+    title: "Des peintures et artistes sans pagination",
     summary:
-      "La pagination existe, mais ses nombreux raccourcis encombrent le bas du catalogue.",
+      "Les peintures se chargent au défilement et la liste des artistes ne propose pas de pagination.",
     category: "Navigation",
-    page: "Catalogue des peintures — pagination",
+    page: "Catalogue des peintures et liste des artistes",
     sources: [
       {
         label: "Voir le catalogue des peintures",
         url: "https://www.loriginal.org/fr/peintures",
       },
+      {
+        label: "Voir la liste des artistes",
+        url: "https://www.loriginal.org/fr/artistes",
+      },
     ],
     description:
-      "Les nombreux raccourcis de pages encombrent le bas du catalogue des peintures, surtout sur mobile.",
+      "Dans le catalogue, de nouvelles peintures se chargent automatiquement lorsqu’on approche du pied de page. La liste des artistes est également longue et sans pagination. Ces parcours rendent la position et l’accès au pied de page difficiles à retrouver.",
     recommendation:
-      "Limiter les numéros visibles avec des ellipses et des boutons Précédent / Suivant, tout en conservant les filtres.",
+      "Ajouter une pagination aux peintures et aux artistes, en conservant les filtres et la position au retour d’une fiche, pour faciliter le parcours et l’accès au pied de page.",
     screenshots: [],
     illustration: "navigation",
   },
@@ -285,29 +289,8 @@ export const anomalies: Anomaly[] = [
     illustration: "navigation",
   },
   {
-    id: "liste-artistes",
-    number: "13",
-    title: "Une longue liste d’artistes sans pagination",
-    summary:
-      "La liste des artistes ne propose pas de pagination pour faciliter le parcours.",
-    category: "Navigation",
-    page: "Liste des artistes",
-    sources: [
-      {
-        label: "Voir la liste des artistes",
-        url: "https://www.loriginal.org/fr/artistes",
-      },
-    ],
-    description:
-      "La liste des artistes est longue et ne propose pas de pagination, ce qui oblige à faire défiler de nombreux profils.",
-    recommendation:
-      "Ajouter une pagination ou un chargement progressif accessible, avec recherche et conservation de la position au retour d’un profil.",
-    screenshots: [],
-    illustration: "navigation",
-  },
-  {
     id: "profil-incomplet",
-    number: "14",
+    number: "13",
     title: "Des espaces vides dans un profil artiste",
     summary:
       "Le profil de Zen-ruffinen Véronique laisse des blancs pour sa biographie ou sa ville non renseignées.",
@@ -328,7 +311,7 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "carte-artiste-inactive",
-    number: "15",
+    number: "14",
     title: "Une carte artiste qui ne se retourne pas",
     summary:
       "« Retournez la carte » ne fonctionne pas dans le composant « Créez-la avec Fish vik ».",
@@ -349,7 +332,7 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "pickart-footer",
-    number: "16",
+    number: "15",
     title: "Un pied de page absent des artistes favoris",
     summary:
       "Le pied de page est absent de la page « Artistes favoris » de PickArt.",
@@ -374,7 +357,7 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "echelle-tableau",
-    number: "17",
+    number: "16",
     title: "Une mise en situation à l’échelle incohérente",
     summary:
       "« Main au Doigt Levé » mesure 10 × 76 cm, mais paraît beaucoup plus large dans la prévisualisation du bureau.",
@@ -395,7 +378,7 @@ export const anomalies: Anomaly[] = [
   },
   {
     id: "photos-notre-histoire",
-    number: "18",
+    number: "17",
     title: "Des photographies floues dans « Notre histoire »",
     summary:
       "Les photographies semblent manquer de définition à leur taille d’affichage.",
@@ -431,14 +414,14 @@ export const improvements: Improvement[] = [
     id: "navigation-catalogues",
     title: "Faciliter l’exploration des catalogues",
     description:
-      "Alléger la pagination des peintures, distinguer les disponibilités et structurer la longue liste des artistes.",
+      "Paginer les peintures et les artistes, et distinguer les œuvres disponibles.",
     category: "Navigation",
     icon: "compass",
-    ticketIds: ["pagination-peintures", "oeuvres-adoptees", "liste-artistes"],
+    ticketIds: ["pagination-peintures", "oeuvres-adoptees"],
     details: [
-      "Compacter la pagination existante des peintures avec ellipses, Précédent / Suivant et conservation des filtres.",
+      "Ajouter une pagination aux peintures et aux artistes pour limiter le défilement et rendre le pied de page accessible.",
       "Proposer un filtre « Disponibles » sans supprimer les fiches des œuvres adoptées ni leur intérêt de portfolio.",
-      "Paginer les artistes côté serveur par 24 ou 48, ou proposer une progression accessible, avec recherche, tri et état dans l’URL.",
+      "Conserver les filtres, la page consultée et la position au retour d’une fiche.",
     ],
   },
   {

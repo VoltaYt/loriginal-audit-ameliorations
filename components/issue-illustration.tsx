@@ -13,7 +13,7 @@ const c = {
 
 const titles: Record<string, string> = {
   "prix-incoherents": "Main au Doigt Levé : prix affiché de 7 200 025 dollars",
-  "pagination-peintures": "Pagination du catalogue : nombreux raccourcis et version compacte",
+  "pagination-peintures": "Peintures ajoutées au défilement et longue liste d’artistes : proposer une pagination pour les deux catalogues",
   "livraison-incoherente": "Livraison : 13 pays dans le catalogue, partout dans le monde sur l’accueil",
   "tarif-programme-numerique": "Le programme numérique indique sans abonnement et 28 dollars par mois",
   "faq-programmes-artistes": "Deux réponses contradictoires sur les tirages et les œuvres numériques",
@@ -24,7 +24,6 @@ const titles: Record<string, string> = {
   "espacement-faq-bureau": "FAQ Décore bureau : texte collé aux bords et proposition avec marges",
   "grille-peintures-anglaise": "Avant et après : grille irrégulière et contenants alignés, sans recadrer les œuvres",
   "oeuvres-adoptees": "L’étiquette Adopté est éloignée des informations de l’œuvre dans le catalogue",
-  "liste-artistes": "Une longue grille d’artistes sans pagination, et une navigation proposée",
   "profil-incomplet": "Le profil de Zen-ruffinen Véronique laisse un grand espace sans biographie",
   "carte-artiste-inactive": "La carte Créez-la avec Fish vik ne se retourne pas après le clic",
   "pickart-footer": "Artistes favoris PickArt : absence du pied de page habituel",
@@ -72,9 +71,9 @@ function Art({ x, y, width, height }: { x: number; y: number; width: number; hei
   </g>;
 }
 
-function Pagination({ x, y, dense = false }: { x: number; y: number; dense?: boolean }) {
-  const labels = dense ? Array.from({ length: 18 }, (_, i) => String(i + 1)) : ["‹", "1", "…", "7", "8", "9", "…", "24", "›"];
-  const step = dense ? 36 : 42;
+function Pagination({ x, y }: { x: number; y: number }) {
+  const labels = ["‹", "1", "…", "7", "8", "9", "…", "24", "›"];
+  const step = 42;
   return <g>{labels.map((label, i) => <g key={i}>
     <rect x={x + i * step} y={y} width={step - 5} height={33} rx={5} fill={label === "8" ? c.red : c.dark} stroke={c.line} />
     <Text x={x + i * step + (step - 5) / 2} y={y + 22} size={14} anchor="middle">{label}</Text>
@@ -125,11 +124,21 @@ function Diagram({ ticket }: { ticket?: string }) {
       </>;
     case "pagination-peintures":
       return <>
-        <Label x={40} y={110}>NOMBREUX RACCOURCIS</Label>
-        <Panel x={40} y={126} width={720} height={72}><Pagination x={72} y={145} dense /></Panel>
-        <Arrow x={398} y={216} down />
-        <Label x={40} y={277} accent>PROPOSITION COMPACTE</Label>
-        <Panel x={40} y={293} width={720} height={72} accent><Pagination x={211} y={313} /></Panel>
+        <Panel x={40} y={108} width={344} height={173}>
+          <Label x={60} y={136}>PEINTURES : CHARGEMENT AU DÉFILEMENT</Label>
+          {[0, 1, 2, 3].map(i => <rect key={i} x={60 + i * 77} y={153} width={64} height={53} rx={4} fill="#393333" />)}
+          <path d="M60 219h304" stroke={c.line} strokeDasharray="5 5" />
+          <Text x={60} y={247} size={15} color={c.accent}>De nouvelles œuvres près du footer.</Text>
+          <Text x={60} y={269} size={14} color={c.muted}>Aucune pagination.</Text>
+        </Panel>
+        <Panel x={408} y={108} width={352} height={173}>
+          <Label x={428} y={136}>ARTISTES : UNE LONGUE LISTE</Label>
+          {[0, 1, 2].map(row => <g key={row}>{[0, 1, 2, 3, 4, 5].map(col => <rect key={col} x={428 + col * 52} y={153 + row * 27} width={42} height={20} rx={3} fill="#333333" />)}</g>)}
+          <Text x={428} y={269} size={14} color={c.muted}>Aucune pagination.</Text>
+        </Panel>
+        <Label x={40} y={315} accent>PROPOSITION POUR LES DEUX CATALOGUES</Label>
+        <Panel x={40} y={332} width={720} height={64} accent><Pagination x={211} y={348} /></Panel>
+        <Text x={400} y={423} size={15} anchor="middle" color={c.muted}>Parcourir par pages et garder le pied de page accessible.</Text>
       </>;
     case "livraison-incoherente":
       return <>
@@ -273,18 +282,6 @@ function Diagram({ ticket }: { ticket?: string }) {
         <rect x={355} y={341} width={405} height={45} rx={7} fill={c.dark} stroke={c.accent} />
         <Text x={374} y={369} size={17} color={c.accent}>Proposition : filtre « Disponibles »</Text>
       </>;
-    case "liste-artistes":
-      return <>
-        <Label x={40} y={107}>UNE LONGUE LISTE À FAIRE DÉFILER</Label>
-        {[0, 1, 2].map(row => <g key={row}>{[0, 1, 2, 3, 4, 5, 6, 7].map(col => <g key={col}>
-          <rect x={40 + col * 91} y={123 + row * 65} width={78} height={43} rx={4} fill="#303030" />
-          <path d={`M${45 + col * 91} ${177 + row * 65}h67`} stroke={c.line} strokeWidth={3} />
-        </g>)}</g>)}
-        <path d="M40 322h720" stroke={c.line} strokeDasharray="5 5" />
-        <Label x={40} y={363} accent>PROPOSITION</Label>
-        <Pagination x={211} y={342} />
-        <Text x={400} y={412} size={15} color={c.muted} anchor="middle">Parcourir les profils par pages, puis retrouver sa position.</Text>
-      </>;
     case "profil-incomplet":
       return <>
         <Panel x={40} y={111} width={720} height={278}>
@@ -382,7 +379,7 @@ function Diagram({ ticket }: { ticket?: string }) {
 
 const headings: Record<string, string> = {
   "prix-incoherents": "Un montant qui surprend.",
-  "pagination-peintures": "Alléger les raccourcis de pages.",
+  "pagination-peintures": "Paginer les peintures et les artistes.",
   "livraison-incoherente": "Deux réponses sur la livraison.",
   "tarif-programme-numerique": "Sans abonnement… ou 28 $ par mois ?",
   "faq-programmes-artistes": "Des critères d’admission contradictoires.",
@@ -393,7 +390,6 @@ const headings: Record<string, string> = {
   "espacement-faq-bureau": "Donner de l’espace aux questions.",
   "grille-peintures-anglaise": "Aligner les cadres, préserver les formats.",
   "oeuvres-adoptees": "Mieux distinguer les œuvres adoptées.",
-  "liste-artistes": "Faciliter le parcours des artistes.",
   "profil-incomplet": "Un grand blanc dans le profil.",
   "carte-artiste-inactive": "Une action sans résultat.",
   "pickart-footer": "Retrouver les liens du pied de page.",
