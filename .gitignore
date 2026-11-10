@@ -426,3 +426,20 @@ FodyWeavers.xsd
 
 # Official VS Code C# Dev Kit Extension exclusion
 #*.lscache
+
+# Next.js / Node.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+.vercel/
+
+# Browser test artifacts
+playwright-report/
+test-results/
+blob-report/
+
+# Local environment (keep templates versioned)
+.env*
+!.env.example
