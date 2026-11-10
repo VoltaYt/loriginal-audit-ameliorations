@@ -1,82 +1,46 @@
 # LOriginal — Un regard neuf
 
-Projet réalisé dans le cadre d’un stage avec [LOriginal](https://www.loriginal.org/fr). Le travail initial consistait, pour l’entrevue de stage, à repérer des problèmes sur leur site web et à proposer des améliorations. Ce site a été créé avec Codex pour apprendre à maîtriser l’outil pendant le stage.
+Une application pour explorer les problèmes repérés sur [loriginal.org](https://www.loriginal.org/fr) et découvrir des pistes pour améliorer l’expérience de ses visiteurs.
 
-Interface française sur fond basalte, accents rouge feu, typographies DM Sans et Instrument Serif auto-hébergées et navigation responsive.
+**17 constats · 6 axes d’amélioration · 4 pages**
 
-## Démarrer
+## Explorer l’application
 
-Node.js **22 ou supérieur** et npm sont nécessaires (validé avec Node.js 24). Depuis le dossier du dépôt :
+| Page | Ce qu’on y trouve |
+| --- | --- |
+| **Vue d’ensemble** | La présentation du projet, sa démarche et un aperçu des constats. |
+| **Les anomalies** | Les problèmes regroupés par catégorie, avec une recherche et des fiches détaillées. |
+| **Les améliorations** | Les solutions proposées et les constats auxquels elles répondent. |
+| **Les technologies** | Une présentation des outils du site et un accès au dépôt GitHub. |
 
-```sh
-npm ci
-npm run dev
-```
+## Consulter les constats
 
-Le serveur de développement utilise le port 3000. Aucune clé API, base de données ou variable d’environnement n’est nécessaire. Si le répertoire de cache npm par défaut n’est pas accessible dans un environnement isolé, utiliser `npm --cache /tmp/loriginal-npm-cache ci`.
+La page des anomalies permet de parcourir les **17 constats** et de retrouver un sujet par mot-clé ou par catégorie : navigation, contenu, données, formulaires, interface et images. La recherche et les filtres peuvent se combiner.
 
-Pour la production :
+En ouvrant une fiche, on retrouve :
 
-```sh
-npm run build
-npm run start
-```
+- Une description du problème.
+- Un visuel explicatif inspiré des captures du site.
+- Les liens vers les pages concernées sur LOriginal.
+- Une piste de correction.
 
-## Les quatre pages
+Les boutons **Précédent** et **Suivant** permettent de passer d’un constat à l’autre. Chaque fiche possède un lien direct : il suffit de copier l’adresse affichée dans le navigateur pour la partager. Les filtres restent en place après la fermeture de la fiche.
 
-| Route            | Contenu                                                                      |
-| ---------------- | ---------------------------------------------------------------------------- |
-| `/`              | Présentation, motivations, démarche et aperçu des constats                   |
-| `/anomalies`     | 17 constats, recherche, catégories et modales de détails          |
-| `/ameliorations` | Six axes d’amélioration, liés aux constats concernés, avec pistes dépliables |
-| `/technologies`  | Codex, Next.js, React, TypeScript et CSS                       |
+## Découvrir les améliorations
 
-Les fiches sont partageables par URL : `/anomalies?anomalie=prix-incoherents`. Une modale présente le problème, la page concernée et une piste de correction. Fermeture par bouton, touche Échap ou clic sur l’arrière-plan. Les filtres restent en place après fermeture.
+Six axes rassemblent les propositions :
 
-## Contenu de l’audit et captures
+- **Navigation** — faciliter le parcours des peintures et des artistes.
+- **Contenu** — harmoniser les informations et les réponses aux questions fréquentes.
+- **Données** — fiabiliser les prix, les compteurs et les informations des fiches.
+- **Formulaires** — signaler les erreurs et accompagner la saisie.
+- **Interface** — améliorer les espacements, les interactions et les repères.
+- **Images** — soigner la netteté, les proportions et les mises en situation.
 
-Toutes les données sont centralisées dans **`lib/audit-data.ts`**. Les 17 constats sont numérotés de 1 à 17, sans saut. L’absence de pagination des peintures et des artistes est regroupée dans un même constat. Les liens partagés vers l’ancien constat des artistes ouvrent cette fiche commune.
+Les améliorations se filtrent par catégorie. Chaque carte propose des pistes dépliables et des liens vers les constats associés.
 
-Les visuels explicatifs s’inspirent des captures fournies pour montrer les problèmes et les pistes de correction. Les liens des pages concernées sont renseignés dans chaque fiche. Pour ajouter des captures à la galerie :
+## Naviguer simplement
 
-1. Déposer les images dans `public/audit/` avec des noms descriptifs.
-2. Renseigner `screenshots` pour le constat correspondant dans `lib/audit-data.ts` :
+L’interface est en français, avec un thème noir et rouge feu. Le menu permet de passer d’une page à l’autre, sur ordinateur comme sur mobile.
 
-```ts
-screenshots: [
-  {
-    src: "/audit/prix-catalogue.png",
-    alt: "Description précise du contenu visible dans la capture",
-    caption: "Page et contexte du relevé, avec sa date",
-  },
-],
-```
-
-La galerie affiche automatiquement ces captures à la place du schéma dans la modale. Plusieurs images par constat sont prises en charge. Les cartes conservent leur schéma de synthèse. Vérifier et masquer toute donnée personnelle avant l’ajout d’une image.
-
-## Vérifier
-
-```sh
-npm run lint
-npm run typecheck
-npm run build
-npm run test:e2e
-```
-
-Playwright vérifie les parcours sur ordinateur et mobile : navigation, 17 constats et numérotation, recherche, combinaisons de filtres, modales, liens directs, focus clavier, détails des améliorations et absence de débordement horizontal.
-
-Le navigateur Chromium système est utilisé s’il existe dans `/usr/bin/chromium`. Sinon, l’installer avec `npx playwright install chromium`, ou définir `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` vers un navigateur compatible. Les tests démarrent un serveur de développement si aucun serveur n’utilise déjà le port 3000; pour vérifier la production, lancer préalablement `npm run build` puis `npm run start` dans un autre terminal.
-
-## Structure
-
-```text
-app/                         Pages, layout, styles et icône
-components/                  Navigation, filtres, modale et illustrations
-lib/audit-data.ts            Constats et propositions typés
-public/audit/                Captures et ressources de l’audit
-tests/site.spec.ts           Parcours Playwright
-```
-
-Next.js 16 et React 19 sont installés avec TypeScript strict. Les pages de présentation sont pré-rendues; les interactions utilisent des composants React côté client. Les données sont locales : aucune modification n’est envoyée au site audité.
-
-Chaque tâche infonuagique possède déjà un environnement isolé : réutiliser le checkout existant, sans créer de worktree sauf demande explicite.
+Les fiches se ferment avec le bouton de fermeture, la touche **Échap** ou un clic en dehors de la fenêtre. La navigation au clavier et les repères de focus permettent aussi de parcourir l’application sans souris.
