@@ -44,10 +44,7 @@ export function AuditNotice() {
     <div className="demo-notice">
       <ClipboardList size={16} />
       <p>
-        <strong>Relevé du 9 novembre 2026.</strong> Les constats proviennent de
-        l’audit fourni par l’auteur du projet; les priorités sont suggérées et
-        certains points restent à vérifier. Les visuels sont des illustrations,
-        pas des captures du site.
+        Les visuels sont des illustrations des problèmes, pas des captures du site.
       </p>
     </div>
   );
@@ -77,16 +74,5 @@ export function SectionTitle({
         </Link>
       )}
     </div>
-  );
-}
-
-export function Severity({ level }: { level: string }) {
-  return (
-    <span
-      className={`severity severity-${level === "Élevée" ? "high" : level === "Moyenne" ? "medium" : "low"}`}
-    >
-      <span />
-      {level}
-    </span>
   );
 }

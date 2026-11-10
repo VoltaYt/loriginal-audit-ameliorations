@@ -14,7 +14,7 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: "list",
   use: {
-    baseURL: "http://127.0.0.1:3000",
+    baseURL: "http://localhost:3000",
     browserName: "chromium",
     reducedMotion: "reduce",
     screenshot: "only-on-failure",
@@ -34,7 +34,7 @@ export default defineConfig({
   ],
   webServer: {
     command: "npm run dev -- --port 3000",
-    url: "http://127.0.0.1:3000",
+    url: "http://localhost:3000",
     reuseExistingServer: true,
     timeout: 120_000,
   },

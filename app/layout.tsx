@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s · LOriginal",
   },
   description:
-    "Un projet indépendant pour observer, comprendre et proposer une meilleure expérience du site LOriginal. Audit, pistes d’amélioration et démarche de conception.",
+    "Projet de stage avec LOriginal : problèmes repérés sur le site, améliorations proposées et apprentissage de Codex.",
 };
 
 export const viewport: Viewport = {

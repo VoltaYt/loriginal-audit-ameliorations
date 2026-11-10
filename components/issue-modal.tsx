@@ -6,17 +6,14 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
-  Check,
   ImageIcon,
   Lightbulb,
   MapPin,
-  Target,
   X,
 } from "lucide-react";
 import Image from "next/image";
 import { anomalies, type Anomaly } from "@/lib/audit-data";
 import { IssueIllustration } from "@/components/issue-illustration";
-import { Severity } from "@/components/ui";
 
 export function IssueModal({
   item,
@@ -79,17 +76,29 @@ export function IssueModal({
         <div className="modal-heading">
           <div className="modal-badges">
             <span className="category-badge">{item.category}</span>
-            <Severity level={item.severity} />
-            <span className="unconfirmed">{item.status}</span>
           </div>
           <h2 id="issue-title">{item.title}</h2>
           <p id="issue-description">{item.summary}</p>
         </div>
-        <div className="source-context">
-          <span>
-            <MapPin size={13} />
-            {item.page}
-          </span>
+        <div className="issue-sources">
+          {item.sources.length ? (
+            item.sources.map((source) => (
+              <a
+                key={source.url}
+                className="issue-source"
+                href={source.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MapPin size={14} />
+                <span>{source.label}</span>
+                <ArrowUpRight size={15} />
+                <span className="sr-only"> (nouvel onglet)</span>
+              </a>
+            ))
+          ) : (
+            <p className="source-context">{item.page} · Lien à renseigner</p>
+          )}
         </div>
         {item.screenshots.length ? (
           <div className="evidence-gallery">
@@ -114,40 +123,13 @@ export function IssueModal({
             </div>
             <div className="image-caption">
               <ImageIcon size={14} />
-              <span>
-                Illustration pédagogique · Capture d’origine non fournie pour ce
-                constat.
-              </span>
+              <span>Illustration du problème</span>
             </div>
           </>
         )}
         <div className="modal-description">
           <span className="micro-label">COMPRENDRE LE PROBLÈME</span>
           <p>{item.description}</p>
-        </div>
-        <div className="expected-box">
-          <h3>
-            <Check size={16} /> Le résultat attendu
-          </h3>
-          <p>{item.expected}</p>
-        </div>
-        <div className="impact-box">
-          <Target size={20} />
-          <div>
-            <h3>L’impact potentiel</h3>
-            <p>{item.impact}</p>
-          </div>
-        </div>
-        <div className="modal-steps">
-          <h3>Comment vérifier ce point</h3>
-          <ol>
-            {item.steps.map((step, i) => (
-              <li key={step}>
-                <span>{(i + 1).toString().padStart(2, "0")}</span>
-                {step}
-              </li>
-            ))}
-          </ol>
         </div>
         <div className="recommendation-box">
           <Lightbulb size={22} />
@@ -158,10 +140,6 @@ export function IssueModal({
               Découvrir les améliorations <ArrowUpRight size={15} />
             </Link>
           </div>
-        </div>
-        <div className="modal-evidence-note">
-          <Check size={15} /> Source : relevé de l’auteur du 9 novembre 2026.
-          Reproduction indépendante non effectuée.
         </div>
       </div>
       <div className="modal-footer">

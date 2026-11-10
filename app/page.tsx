@@ -5,14 +5,13 @@ import {
   ArrowRight,
   ArrowUpRight,
   Bug,
-  Check,
   Code2,
   Lightbulb,
   ScanEye,
   Sparkles,
 } from "lucide-react";
 import { BasaltArt } from "@/components/basalt-art";
-import { AuditNotice, Eyebrow, SectionTitle, Severity } from "@/components/ui";
+import { Eyebrow, SectionTitle } from "@/components/ui";
 import { anomalies } from "@/lib/audit-data";
 
 export default function Home() {
@@ -20,7 +19,7 @@ export default function Home() {
     <div className="page home-page">
       <section className="hero">
         <div className="hero-copy">
-          <Eyebrow>ÉTUDE DE CAS · LORIGINAL.ORG</Eyebrow>
+          <Eyebrow>PROJET DE STAGE · LORIGINAL.ORG</Eyebrow>
           <h1>
             Un regard neuf.
             <br />
@@ -32,9 +31,8 @@ export default function Home() {
             </span>
           </h1>
           <p>
-            Prendre le temps d’observer. Comprendre ce qui freine.
-            <br className="desktop-break" /> Et proposer ce qui pourrait tout
-            changer.
+            Repérer les problèmes du site LOriginal
+            <br className="desktop-break" /> et proposer des améliorations concrètes.
           </p>
           <div className="hero-actions">
             <Link className="button button-primary" href="/anomalies">
@@ -45,8 +43,7 @@ export default function Home() {
             </a>
           </div>
           <div className="hero-footnote">
-            <span className="small-line" /> UNE INITIATIVE INDÉPENDANTE &
-            CONSTRUCTIVE
+            <span className="small-line" /> UN PROJET DE STAGE AVEC LORIGINAL
           </div>
         </div>
         <BasaltArt />
@@ -97,24 +94,18 @@ export default function Home() {
           <div className="approach-intro">
             <span className="micro-label">LE POURQUOI DU PROJET</span>
             <h3>
-              Parce qu’une bonne idée
+              Un premier regard,
               <br />
-              mérite une <em>belle expérience.</em>
+              puis un <em>projet de stage.</em>
             </h3>
             <p>
-              Ce projet est né d’une envie : regarder le site LOriginal avec un
-              œil neuf et imaginer comment rendre son utilisation plus simple,
-              plus accessible et plus agréable.
+              Dans le cadre de mon entrevue de stage chez LOriginal, je devais
+              repérer des problèmes sur leur site web et proposer des améliorations.
             </p>
             <p>
-              Il ne s’agit pas de juger, mais de comprendre. Chaque point de
-              friction devient une occasion d’apprendre et une piste concrète
-              pour faire mieux.
+              Ce site rassemble ce travail. Je l’ai créé avec Codex pour apprendre
+              à maîtriser l’outil pendant mon stage.
             </p>
-            <div className="independent-note">
-              <Check size={15} /> Un projet personnel, sans affiliation avec
-              LOriginal.
-            </div>
           </div>
           <div className="method-list">
             <div>
@@ -150,8 +141,7 @@ export default function Home() {
                   <Sparkles size={17} /> Construire pour apprendre
                 </h4>
                 <p>
-                  Donner forme aux idées avec une interface moderne et des
-                  technologies adaptées.
+                  Apprendre à utiliser Codex en réalisant ce site pendant le stage.
                 </p>
               </div>
               <ArrowUpRight size={16} />
@@ -166,7 +156,6 @@ export default function Home() {
           href="/anomalies"
           link="Voir les anomalies"
         />
-        <AuditNotice />
         <div className="preview-grid">
           {anomalies.slice(0, 3).map((item) => (
             <Link
@@ -178,12 +167,11 @@ export default function Home() {
                 <span className="micro-label">
                   {item.number} / {item.category}
                 </span>
-                <Severity level={item.severity} />
               </div>
               <h3>{item.title}</h3>
               <p>{item.summary}</p>
               <div className="card-bottom">
-                <span>{item.status}</span>
+                <span>Voir le détail</span>
                 <span className="circle-arrow">
                   <ArrowUpRight size={17} />
                 </span>

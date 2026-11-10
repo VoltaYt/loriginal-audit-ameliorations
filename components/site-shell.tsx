@@ -116,7 +116,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           </span>
         </Link>
         <div className="sidebar-project">
-          <span className="status-dot" /> PROJET INDÉPENDANT{" "}
+          <span className="status-dot" /> PROJET DE STAGE{" "}
           <span className="version">v.01</span>
         </div>
         <div className="nav-label">EXPLORER LE PROJET</div>
@@ -162,7 +162,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             </span>
             <ExternalLink size={16} />
           </a>
-          <span className="sidebar-foot">CONÇU AVEC CURIOSITÉ & EXIGENCE</span>
+          <span className="sidebar-foot">RÉALISÉ AVEC CODEX</span>
         </div>
       </aside>
       <div className="workspace" inert={open}>
@@ -186,7 +186,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         </main>
         <footer className="site-footer">
           <span>
-            © {new Date().getFullYear()} LOriginal · Regard indépendant
+            © {new Date().getFullYear()} LOriginal · Projet de stage
           </span>
           <span>
             Une étude, des idées, des possibilités.

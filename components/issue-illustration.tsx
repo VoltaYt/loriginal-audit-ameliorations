@@ -2,12 +2,12 @@ import type { ReactNode } from "react";
 
 const c = {
   bg: "#202422",
-  panel: "#2b312a",
+  panel: "#302a26",
   dark: "#171c18",
-  line: "#46503f",
-  muted: "#a2ae96",
+  line: "#58463b",
+  muted: "#b6a69b",
   cream: "#f0f0e6",
-  lime: "#d9f36c",
+  accent: "#e1725d",
   amber: "#e6b18b",
 };
 
@@ -69,7 +69,7 @@ function Label({
     <text
       x={x}
       y={y}
-      fill={accent ? c.lime : c.muted}
+      fill={accent ? c.accent : c.muted}
       fontSize="12"
       letterSpacing=".3"
     >
@@ -110,7 +110,7 @@ function Box({
         height={height}
         rx="8"
         fill={c.panel}
-        stroke={dashed ? c.lime : c.line}
+        stroke={dashed ? c.accent : c.line}
         strokeDasharray={dashed ? "5 5" : undefined}
       />
       {children}
@@ -130,7 +130,7 @@ function Arrow({
   return (
     <path
       d={down ? `M${x} ${y}v30m-6-6 6 6 6-6` : `M${x} ${y}h32m-6-6 6 6-6 6`}
-      stroke={c.lime}
+      stroke={c.accent}
       strokeWidth="1.5"
       fill="none"
       strokeLinecap="round"
@@ -154,20 +154,20 @@ function Art({
 }) {
   return (
     <g opacity={faded ? 0.45 : 1}>
-      <rect x={x} y={y} width={width} height={height} rx="2" fill="#626f4a" />
+      <rect x={x} y={y} width={width} height={height} rx="2" fill="#81533f" />
       <circle
         cx={x + width * 0.7}
         cy={y + height * 0.28}
         r={Math.min(width, height) * 0.15}
-        fill="#c0ce83"
+        fill="#d8a071"
       />
       <path
         d={`M${x} ${y + height * 0.82}L${x + width * 0.35} ${y + height * 0.35}L${x + width * 0.66} ${y + height * 0.76}L${x + width} ${y + height * 0.5}V${y + height}H${x}Z`}
-        fill="#8b9c61"
+        fill="#b47752"
       />
       <path
         d={`M${x} ${y + height * 0.94}L${x + width * 0.45} ${y + height * 0.72}L${x + width} ${y + height * 0.86}V${y + height}H${x}Z`}
-        fill="#394833"
+        fill="#54392c"
       />
     </g>
   );
@@ -214,7 +214,7 @@ function PageButtons({
             width={dense ? 26 : 34}
             height="30"
             rx="4"
-            fill={label === "8" ? c.lime : c.dark}
+            fill={label === "8" ? c.accent : c.dark}
             stroke={c.line}
           />
           <text
@@ -359,9 +359,9 @@ function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
               height="47"
               rx="4"
               fill={c.dark}
-              stroke={c.lime}
+              stroke={c.accent}
             />
-            <path d="M477 255v10m-15 0h30" stroke={c.lime} />
+            <path d="M477 255v10m-15 0h30" stroke={c.accent} />
             <Label x={526} y={227}>
               Œuvres acceptées
             </Label>
@@ -410,7 +410,7 @@ function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
           </Box>
           <Arrow x={392} y={245} down />
           <Box x={118} y={287} width={562} height={48}>
-            <text x="136" y="317" fill={c.lime} fontSize="19">
+            <text x="136" y="317" fill={c.accent} fontSize="19">
               nom@exemple.com
             </text>
           </Box>
@@ -442,7 +442,7 @@ function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
                   x={183 + i * 144}
                   y="307"
                   textAnchor="middle"
-                  fill={c.lime}
+                  fill={c.accent}
                   fontSize="13"
                 >
                   {label}
@@ -472,7 +472,7 @@ function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
             <Label x={443} y={195}>
               IDENTIFIANT COMMUN
             </Label>
-            <text x="443" y="232" fill={c.lime} fontSize="23">
+            <text x="443" y="232" fill={c.accent} fontSize="23">
               Ville · langue · libellé
             </text>
             <Label x={443} y={276}>
@@ -540,7 +540,7 @@ function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
           <text x="138" y="325" fill={c.cream} fontSize="16">
             Comment décorer un bureau avec une œuvre ?
           </text>
-          <text x="646" y="325" fill={c.lime} fontSize="20">
+          <text x="646" y="325" fill={c.accent} fontSize="20">
             +
           </text>
         </>
@@ -610,7 +610,7 @@ function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
                 width="148"
                 height="27"
                 rx="4"
-                fill={i === 1 ? c.dark : c.lime}
+                fill={i === 1 ? c.dark : c.accent}
               />
               <text
                 x={206 + i * 194}
@@ -660,8 +660,8 @@ function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
         <>
           <Heading>Prévoir les informations manquantes.</Heading>
           <circle cx="183" cy="204" r="43" fill={c.panel} stroke={c.line} />
-          <circle cx="183" cy="192" r="13" fill="#647055" />
-          <path d="M160 227c0-25 46-25 46 0" fill="#647055" />
+          <circle cx="183" cy="192" r="13" fill="#8a6b55" />
+          <path d="M160 227c0-25 46-25 46 0" fill="#8a6b55" />
           <Label x={136} y={275}>
             Profil artiste
           </Label>
@@ -687,7 +687,7 @@ function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
         <>
           <Heading>Rendre le geste et son résultat explicites.</Heading>
           <Box x={144} y={160} width={200} height={172}>
-            <circle cx="244" cy="205" r="26" fill="#647055" />
+            <circle cx="244" cy="205" r="26" fill="#8a6b55" />
             <text
               x="244"
               y="258"
@@ -701,7 +701,7 @@ function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
               x="244"
               y="294"
               textAnchor="middle"
-              fill={c.lime}
+              fill={c.accent}
               fontSize="13"
             >
               Cliquer pour retourner ↻
@@ -745,7 +745,7 @@ function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
           </Label>
           {[0, 1, 2].map((i) => (
             <Box key={i} x={118 + i * 194} y={182} width={178} height={79}>
-              <circle cx={147 + i * 194} cy="210" r="14" fill="#647055" />
+              <circle cx={147 + i * 194} cy="210" r="14" fill="#8a6b55" />
               <path
                 d={`M${172 + i * 194} 206h98m-98 13h73`}
                 stroke={c.line}
@@ -758,7 +758,7 @@ function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
               x="400"
               y="315"
               textAnchor="middle"
-              fill={c.lime}
+              fill={c.accent}
               fontSize="15"
             >
               Zone du pied de page à retrouver dans le rendu
@@ -778,7 +778,7 @@ function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
               width="238"
               height="37"
               rx="7"
-              fill="#46513c"
+              fill="#5d4133"
             />
             <rect
               x="181"
@@ -786,10 +786,10 @@ function Diagram({ ticket, blurId }: { ticket?: string; blurId: string }) {
               width="207"
               height="35"
               rx="8"
-              fill="#59664a"
+              fill="#826044"
             />
             <Art x={242} y={182} width={56} height={51} />
-            <path d="M242 173h56m-56-4v8m56-8v8" stroke={c.lime} />
+            <path d="M242 173h56m-56-4v8m56-8v8" stroke={c.accent} />
             <Label x={221} y={317}>
               Décor schématique
             </Label>
@@ -880,7 +880,7 @@ export function IssueIllustration({
         </filter>
       </defs>
       <rect width="800" height="440" rx="16" fill={c.bg} />
-      <path d="M25 25H775V415H25Z" fill="none" stroke="#343c31" />
+      <path d="M25 25H775V415H25Z" fill="none" stroke="#44362e" />
       <g fontFamily="Arial, sans-serif">
         <rect
           x="84"
@@ -893,7 +893,7 @@ export function IssueIllustration({
         />
         <path d="M84 89H716" stroke={c.line} />
         {[107, 122, 137].map((x) => (
-          <circle key={x} cx={x} cy="70" r="3.5" fill="#6c775e" />
+          <circle key={x} cx={x} cy="70" r="3.5" fill="#8e6e57" />
         ))}
         <text
           x="404"

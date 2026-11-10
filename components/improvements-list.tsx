@@ -11,7 +11,6 @@ import {
   MessageSquare,
   Palette,
   Sparkles,
-  TrendingUp,
   Zap,
   type LucideIcon,
 } from "lucide-react";
@@ -91,19 +90,6 @@ export function ImprovementsList() {
                   ) : null;
                 })}
               </div>
-              <dl className="improvement-metrics">
-                <div>
-                  <dt>
-                    <TrendingUp size={14} aria-hidden="true" />
-                    Impact indicatif
-                  </dt>
-                  <dd>{improvement.impact}</dd>
-                </div>
-                <div>
-                  <dt>Effort indicatif</dt>
-                  <dd className="effort-badge">{improvement.effort}</dd>
-                </div>
-              </dl>
 
               <details className="improvement-details">
                 <summary>

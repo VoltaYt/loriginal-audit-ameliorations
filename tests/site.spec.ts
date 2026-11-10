@@ -16,6 +16,8 @@ test("les quatre pages sont accessibles depuis la navigation principale", async 
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
   await expect(page.locator("main h1")).toContainText("Un regard neuf");
+  await expect(page.locator(".approach-intro")).toContainText("entrevue de stage chez LOriginal");
+  await expect(page.locator(".hero-footnote")).toContainText("UN PROJET DE STAGE AVEC LORIGINAL");
 
   for (const [name, path] of [
     ["Les anomalies", "/anomalies"],
@@ -32,6 +34,11 @@ test("les quatre pages sont accessibles depuis la navigation principale", async 
       new RegExp(`${path === "/" ? "/$" : `${path}$`}`),
     );
     await expect(page.locator("main h1")).toBeVisible();
+    if (path === "/technologies") {
+      await expect(page.locator(".page-heading")).toContainText(
+        "Codex pour apprendre à maîtriser l’outil dans le cadre de mon stage chez LOriginal",
+      );
+    }
     // Le menu mobile est refermé et retiré de l'arbre d'accessibilité après
     // navigation. L'attribut d'état demeure vérifiable dans le DOM.
     await expect(
@@ -76,7 +83,7 @@ test("la recherche, son état vide et la réinitialisation fonctionnent", async 
   await expect(page.locator(".anomaly-card")).toHaveCount(20);
 });
 
-test("catégorie et priorité se combinent sans perdre le filtre", async ({
+test("catégorie et recherche se combinent sans perdre le filtre", async ({
   page,
 }) => {
   await page.goto("/anomalies");
@@ -87,16 +94,17 @@ test("catégorie et priorité se combinent sans perdre le filtre", async ({
     .getByRole("button", { name: "Formulaires", exact: true })
     .click();
   await expect(page.locator(".anomaly-card")).toHaveCount(2);
-  await page
-    .getByRole("combobox", { name: "Filtrer par priorité" })
-    .selectOption("Élevée");
+  await expect(page.getByRole("combobox", { name: /priorité/i })).toHaveCount(0);
+  await page.getByRole("searchbox", { name: "Rechercher une anomalie" }).fill("location");
   await expect(page.locator(".anomaly-card")).toHaveCount(1);
-  await expect(page.locator(".anomaly-card")).toContainText(
-    /location|validation/i,
-  );
+  await expect(page.locator(".anomaly-card")).toContainText(/location/i);
   await expect(
     filters.getByRole("button", { name: "Formulaires", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "Effacer la recherche" }).click();
+  await expect(page.locator(".anomaly-card")).toHaveCount(2);
+  await expect(filters.getByRole("button", { name: "Formulaires", exact: true }))
+    .toHaveAttribute("aria-pressed", "true");
 });
 
 test("une fiche ouvre une modale accessible avec illustration et navigation", async ({
@@ -111,6 +119,19 @@ test("une fiche ouvre une modale accessible avec illustration et navigation", as
   await expect(dialog.getByRole("heading", { level: 2 })).toHaveText(
     firstTitle,
   );
+  const source = dialog.locator("a.issue-source");
+  await expect(source).toHaveAttribute(
+    "href",
+    "https://www.loriginal.org/fr/peinture/main-au-doigt-leve-samantha-regan-96308",
+  );
+  await expect(source).toHaveAttribute("target", "_blank");
+  await expect(source).toHaveAttribute("rel", /noopener/);
+  await expect(source).toHaveAttribute("rel", /noreferrer/);
+  await expect(dialog.locator(".modal-description")).toContainText("Samantha Regan");
+  await expect(dialog.locator(".recommendation-box")).toBeVisible();
+  await expect(dialog.getByText(/résultat attendu/i)).toHaveCount(0);
+  await expect(page.locator(".severity, .unconfirmed")).toHaveCount(0);
+  await expect(dialog).not.toContainText("Le relevé utilisateur du 9 novembre 2026 rapporte");
   await expect(dialog.locator(".modal-image").getByRole("img")).toBeVisible();
   await expect(dialog.locator(".image-caption")).toContainText(
     /illustration|capture/i,
@@ -166,6 +187,8 @@ test("les améliorations se filtrent et leurs détails sont dépliables", async 
 }) => {
   await page.goto("/ameliorations");
   await expect(page.locator(".improvement-card")).toHaveCount(6);
+  await expect(page.locator("main")).not.toContainText(/impact indicatif|effort indicatif/i);
+  await expect(page.locator(".improvement-metrics")).toHaveCount(0);
   const filters = page.getByRole("group", {
     name: "Filtrer les améliorations par catégorie",
   });

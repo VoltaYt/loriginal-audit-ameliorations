@@ -1,8 +1,8 @@
 # LOriginal — Un regard neuf
 
-Site indépendant présentant l’audit de [loriginal.org/fr](https://www.loriginal.org/fr), réalisé et fourni par l’auteur du projet le **9 novembre 2026**. L’objectif : documenter les points de friction et proposer une expérience plus claire, accessible et agréable. Ce projet n’est pas affilié à LOriginal.
+Projet réalisé dans le cadre d’un stage avec [LOriginal](https://www.loriginal.org/fr). Le travail initial consistait, pour l’entrevue de stage, à repérer des problèmes sur leur site web et à proposer des améliorations. Ce site a été créé avec Codex pour apprendre à maîtriser l’outil pendant le stage.
 
-Interface française aux tons basalte et aux accents citron, typographies DM Sans et Instrument Serif auto-hébergées, navigation responsive et animations respectant les préférences de mouvement réduit.
+Interface française sur fond basalte, accents rouge feu, typographies DM Sans et Instrument Serif auto-hébergées et navigation responsive.
 
 ## Démarrer
 
@@ -27,17 +27,15 @@ npm run start
 | Route            | Contenu                                                                      |
 | ---------------- | ---------------------------------------------------------------------------- |
 | `/`              | Présentation, motivations, démarche et aperçu des constats                   |
-| `/anomalies`     | 20 constats, recherche, filtres combinés, tri et modales de détails          |
+| `/anomalies`     | 20 constats, recherche, catégories et modales de détails          |
 | `/ameliorations` | Six axes d’amélioration, liés aux constats concernés, avec pistes dépliables |
-| `/technologies`  | Next.js, React, TypeScript, CSS et structure du projet                       |
+| `/technologies`  | Codex, Next.js, React, TypeScript et CSS                       |
 
-Les fiches sont partageables par URL : `/anomalies?anomalie=prix-incoherents`. Une modale comporte le contexte, le résultat attendu, l’impact potentiel, les vérifications et la correction proposée. Fermeture par bouton, touche Échap ou clic sur l’arrière-plan. Les filtres restent en place après fermeture.
+Les fiches sont partageables par URL : `/anomalies?anomalie=prix-incoherents`. Une modale présente le problème, la page concernée et une piste de correction. Fermeture par bouton, touche Échap ou clic sur l’arrière-plan. Les filtres restent en place après fermeture.
 
 ## Contenu de l’audit et captures
 
 Toutes les données sont centralisées dans **`lib/audit-data.ts`**. Les 20 numéros originaux sont préservés : 1, 2, 5, 7, 8, 9, 11, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 et 26. Les points retirés n’ont pas été réintroduits.
-
-Les constats sont attribués au relevé fourni par l’auteur, et ne constituent pas une reproduction indépendante des tests. Les statuts distinguent observations rapportées, points à vérifier, précisions nécessaires et suggestions UX. Les priorités ainsi que les estimations d’effort et d’impact sont indicatives. Les pages sources sont nommées sans inventer d’adresses de sous-pages.
 
 **Aucune capture du site n’a été fournie.** Les visuels intégrés sont des schémas explicatifs SVG, clairement identifiés comme tels. Pour ajouter les vraies captures :
 

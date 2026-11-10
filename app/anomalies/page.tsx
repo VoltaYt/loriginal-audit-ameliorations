@@ -12,7 +12,7 @@ export default function AnomaliesPage() {
         eyebrow="02 / OBSERVER & COMPRENDRE"
         title="Les détails qui"
         accent="font la différence."
-        description="Un espace pour documenter les points de friction, comprendre leur impact et ouvrir la voie à une meilleure expérience."
+        description="Les problèmes repérés sur loriginal.org et les pistes pour les corriger."
       />
       <AuditNotice />
       <Suspense
